@@ -17,6 +17,8 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+
+
  
 pygame.init()
  
@@ -31,7 +33,15 @@ done = False
  
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
- 
+
+ #Onde as coisas são inicializadas
+slime_image = pygame.image.load("slime.png").convert()
+slime_dmg_image = pygame.image.load("slime_dmg.png").convert()
+canhao_image = pygame.image.load("canhao.png").convert()
+
+
+
+
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -49,7 +59,9 @@ while not done:
     # If you want a background image, replace this clear with blit'ing the
     # background image.
     screen.fill(WHITE)
- 
+    for x in range(0, 11):
+        for y in range(0, 11):
+            screen.blit(slime_image, [x*32,y*32])
     # --- Drawing code should go here
  
     # --- Go ahead and update the screen with what we've drawn.
