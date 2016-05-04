@@ -34,25 +34,22 @@ class GameMap:
     
         
         creaturedict={
-            "Slime": lambda: Slime(self)
-            "Cannon": lambda: Tower(5, 5, 5, canhao_image, "Cannon")
+            "Slime": lambda: Slime(self),
+            "Cannon": lambda: Cannon(self)
         }
         
         creature= creaturedict[creature]
         
         location={
-            "Mouse": get_mouse_pos(self)
-            "Spawn": #primeiro decidir de que forma guardar o ponto de spawn no mapa
+            "Mouse": lambda: self.mouse_pos_obj(),
+#            "Spawn": #primeiro decidir de que forma guardar o ponto de spawn no mapa
         }
         
         
     #
         
-    def 
+#    def 
     
-    def mouse_pos_obj():
-    posição_x,posição_y = mouse_pos()
-    return Map[posição_x][posição_y]
          
     #
          
