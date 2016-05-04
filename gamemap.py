@@ -9,7 +9,7 @@ import monster_slime
 import torre
 import imagebank
 
-class Map:
+class GameMap:
     
     def __init__(self):
         
@@ -18,7 +18,7 @@ class Map:
         for i in range(19):
            tile_grid.append([])
             for j in range(25):
-                tile_grid.append(Tile_Grass())
+                tile_grid.append[i](Tile_Grass())
         for i in range (5):
             for j in range(5):
                 tile_grid[i + 7][j + 10] = Tile_Wall()
