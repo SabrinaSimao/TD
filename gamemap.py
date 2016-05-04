@@ -50,8 +50,9 @@ class GameMap:
         
     def 
     
-    def get_mouse_pos(self):
-        #Retorna o objeto Tile em que o mouse se encontra 
+    def mouse_pos_obj():
+    posição_x,posição_y = mouse_pos()
+    return Map[posição_x][posição_y]
          
     #
          
