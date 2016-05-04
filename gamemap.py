@@ -17,7 +17,7 @@ class GameMap:
         tile_grid= []
         for i in range(19):
            tile_grid.append([])
-            for j in range(25):
+           for j in range(25):
                 tile_grid.append[i](Tile_Grass())
         for i in range (5):
             for j in range(5):
