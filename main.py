@@ -6,9 +6,7 @@ Created on Wed May  4 13:04:42 2016
 """
 
 import pygame
-import map
-
-pygame.init
+import gamemap
 
 class CycleManager:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
@@ -81,6 +79,9 @@ draw=  DrawManager(game_map, pygame.display)
 cycle= CycleManager(game_map)
 gamespeed= 60 #em ciclos/segundo
 
+current_time= lambda: pygame.time.wait()
+sleep= lambda: pygame.time.wait()
+
 #Main
 while True:
     
@@ -92,7 +93,7 @@ while True:
     sleep_duration= (1/60) - elapsed_time
     
     if sleep_duration > 0:
-        pygame.time.wait(sleep_duration)
+        sleep(sleep_duration)
 #
 
 
