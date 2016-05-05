@@ -13,7 +13,7 @@ class Monster:
     #TODO: função move()    
 
 class Slime (Monster):
-    icon = "slime.bmp"
+    icon = "Slime"
     max_hp = 10
     cycle = 60
     

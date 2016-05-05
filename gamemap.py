@@ -36,22 +36,19 @@ class GameMap:
     
         
         creaturedict={
-            "Slime": lambda: monster.Slime(self),
-            "Cannon": lambda: tower.Cannon(self)
+            "Slime": monster.Slime,
+            "Cannon": tower.Cannon
         }
-        
-        creature= creaturedict[creature]
         
         locationdict={
             "Mouse": lambda: self.mouse_pos_obj(),
             "Spawn": self.spawn.home
         }
         
-        
         target_tile= locationdict[location]
         
-        if target_tile.creature != None:
-            target_tile.creature= creaturedict[creature]
+        if target_tile.creature == None:
+            target_tile.creature= creaturedict[creature](self)
             return 1 #sinal de que criou com sucesso
         return -1 #sinal de que não conseguiu criar
     #

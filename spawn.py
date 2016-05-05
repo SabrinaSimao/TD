@@ -10,12 +10,12 @@ class Spawn:
     #   - self.cycle - intervalo em ciclos até a próima execução de main()
     #   - mapa - Referência ao objeto Mapa, para pedir para ele criar os monstros
     
-    def __init__ (self, mapa, home):
+    def __init__ (self, game_map, home):
         
         self.wave_wait= 600
         self.cycle= self.wave_wait
         self.current_wave= None
-        self.mapa= mapa
+        self.game_map= game_map
         self.home= home #objeto tipo Tile, onde o Spawn se encontra
         
         
@@ -35,7 +35,7 @@ class Spawn:
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo
-        if self.mapa.create(self.current_wave.monster_list[0], "Spawn") != -1:
+        if self.game_map.create(self.current_wave.monster_list[0], "Spawn") != -1:
             
             self.current_wave.monster_list.pop(0)
             self.cycle= self.current_wave.monster_interval
@@ -44,7 +44,7 @@ class Spawn:
             self.cycle= 1
         ##
             
-        if len( self.currentwave.monster_list ) == 0:
+        if len( self.current_wave.monster_list ) == 0:
             self.current_wave= None
             self.cycle= self.wave_wait
     #
