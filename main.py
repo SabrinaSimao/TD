@@ -46,8 +46,8 @@ class DrawManager:
         self.tile_grid= game_map.tile_grid
         self.sprite_size= self.tile_grid[0][0].pixel
         
-        self.canvas.init()
         self.canvas.set_mode([self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid)])
+        self.canvas.fill([0, 0, 0])
     #
         
     def update(self):
@@ -77,8 +77,9 @@ class DrawManager:
             
 #Init
 
+pygame.display.init()
 game_map= GameMap()
-draw=  DrawManager(game_map, pygame.display)
+draw=  DrawManager(game_map, pygame.display.get_surface())
 cycle= CycleManager(game_map)
 gamespeed= 60 #em ciclos/segundo
 
