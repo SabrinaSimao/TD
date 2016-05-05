@@ -6,7 +6,8 @@ Created on Mon May  2 17:07:18 2016
 """
 
 import monster
-import torre
+import tower
+from castle import Castle
 from spawn import Spawn
 
 class GameMap:
@@ -18,12 +19,13 @@ class GameMap:
         for i in range(19):
            self.tile_grid.append([])
            for j in range(25):
-                self.tile_grid.append[i](Tile_Grass())
+                self.tile_grid[i].append(Tile_Grass())
         for i in range (5):
             for j in range(5):
                 self.tile_grid[i + 7][j + 10] = Tile_Wall()
                 
         self.spawn= Spawn(self, self.tile_grid[0][9])
+        self.castle= Castle()
     #
     
     
@@ -85,6 +87,10 @@ class Tile():
     
 class Tile_Grass(Tile):
     icon= "Tile_Grass"
+    def _init_ (self):
+        self.creature = None
     
 class Tile_Wall(Tile):
     icon= "Tile_Wall"
+    def _init_ (self):
+        self.creature = None

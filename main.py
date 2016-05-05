@@ -37,7 +37,7 @@ class DrawManager:
     #desenha os sprites na tela a cada ciclo de jogo
     image_bank= {
         'Tile_Grass': pygame.image.load('pictures\grass.bmp'),
-        'Tile_Wall': pygame.image.load('pictures\wall.bpm'),
+        'Tile_Wall': pygame.image.load('pictures\wall.bmp'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Cannon': pygame.image.load('pictures\cannon.png')}
 
@@ -47,8 +47,7 @@ class DrawManager:
         self.sprite_size= self.tile_grid[0][0].pixel
         
         self.canvas.init()
-        self.canvas.set_mode(self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid))
-        self.canvas.fill( (0, 0, 0) )
+        self.canvas.set_mode([self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid)])
     #
         
     def update(self):
