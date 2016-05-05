@@ -35,7 +35,7 @@ class Spawn:
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo
-        if self.game_map.create(self.current_wave.monster_list[0], "Spawn") != -1:
+        if self.game_map.create(self.current_wave.monster_list[0], self.home) != -1:
             
             self.current_wave.monster_list.pop(0)
             self.cycle= self.current_wave.monster_interval

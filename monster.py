@@ -1,7 +1,13 @@
 class Monster:
     cycle= 60
-    def __init__ (self, mapa):
-        self.mapa=mapa
+    icon = "Default"
+    hp_max = 10
+    
+    
+    def __init__ (self, game_map, home):
+        self.mapa= mapa
+        self.home= home
+        self.game_map= game_map
     
     def main(self):
         #função que executa o monstro, chamada por CycleManager
@@ -9,15 +15,21 @@ class Monster:
         if self.current_hp == 0:
             self.mapa.erase(self)
             
-    #def move(self):
-    #TODO: função move()    
+    def move(self):
+        #tenta se pra a tile abaixo
+        #em sucesso:
+        #retirar sua instância da tile anterior
+        #atualziar home
+        #checar se chegou no castelo
+        #em falha:
+        #nada
+    
+        None
+    
+        
 
 class Slime (Monster):
     icon = "Slime"
-    max_hp = 10
-    cycle = 60
+    hp_max = 10
+    cycle= 60
     
-    def __init__ (self, mapa):
-        self.current_hp= self.max_hp
-        self.mapa= mapa
-        

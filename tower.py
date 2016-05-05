@@ -9,14 +9,14 @@ Created on Wed Apr 27 10:27:41 2016
     Tower Defense"""
     
 class Tower():
-    alcance = 5
-    cycle = 1
-    dano = 1
-    icon = 'default.png'
+    attack_range= 5
+    damage= 1
+    icon= "Default"
     
-    def __init__(self, game_map):
-        
+    def __init__(self, game_map, home):
+        self.cycle= 1
         self.game_map=game_map
+        self.home= home
         
     def main(self):
         None
@@ -25,7 +25,12 @@ class Tower():
 
 
 class Cannon(Tower):
-    alcance= 5
-    cycle= 20
-    dano= 5
-    icon= "cannon.png"
+    attack_range= 5
+    damage= 5
+    icon= "Cannon"
+    
+    def main(self):
+        self.cycle= 1 #prepara para atirar assim que algo entrar no alcance
+        
+        #checa se algo está dentro do alcance
+        #se estiver, atirar nele e setar cycle pra 20

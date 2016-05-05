@@ -27,7 +27,7 @@ class CycleHandler:
         for tile_column in self.tile_grid:
             for tile in tile_column:
                 if tile.creature != None:
-                    if self.cyclecounter % tile.creature.cycle == 0:
+                    if tile.creature.cycle != 0 and self.cyclecounter % tile.creature.cycle == 0:
                         tile.creature.main()
                         
         if self.cyclecounter % self.spawn.cycle == 0:
