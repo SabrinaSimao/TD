@@ -41,12 +41,14 @@ class DrawManager:
         'Slime': pygame.image.load('pictures\slime.png'),
         'Cannon': pygame.image.load('pictures\cannon.png')}
 
-    def __init__(self, game_map, canvas):
-        self.canvas= canvas
+    def __init__(self, game_map, display):
         self.tile_grid= game_map.tile_grid
         self.sprite_size= self.tile_grid[0][0].pixel
         
-        self.canvas.set_mode([self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid)])
+        self.display= display
+        
+        self.display.init()
+        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
     #
         
@@ -56,35 +58,34 @@ class DrawManager:
         # depois desenha as criaturas contidas em cada tile
     
         #deseha tiles:
-        for height in len(self.tile_grid):
-            for width in len(self.tile_grid[height]):
+        for height in range(len(self.tile_grid)):
+            for width in range(len(self.tile_grid[height])):
                 self.canvas.blit(self.image_bank[self.tile_grid[height][width].icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
             
         #desenha criaturas:
-        for height in len(self.tile_grid):
-            for width in len(self.tile_grid[height]):
+        for height in range(len(self.tile_grid)):
+            for width in range(len(self.tile_grid[height])):
                 
                 if self.tile_grid[height][width].creature != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].creature.icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
-        self.canvas.flip()
+        self.display.flip()
     #
 #
             
             
 #Init
 
-pygame.display.init()
 game_map= GameMap()
-draw=  DrawManager(game_map, pygame.display.get_surface())
+draw=  DrawManager(game_map, pygame.display)
 cycle= CycleManager(game_map)
 gamespeed= 60 #em ciclos/segundo
 
-current_time= lambda: pygame.time.wait()
-sleep= lambda: pygame.time.wait()
+current_time= pygame.time.get_ticks
+sleep= pygame.time.wait
 
 #Main
 while True:
@@ -94,10 +95,12 @@ while True:
     draw.update()
     
     elapsed_time= pygame.time.get_ticks() - initial_time
-    sleep_duration= (1/60) - elapsed_time
+    sleep_duration= int(((1/60) - elapsed_time)*1000//1)
     
     if sleep_duration > 0:
+        print (sleep_duration)
         sleep(sleep_duration)
+    #TODO: Rever depois isto, acho que posso estar passando uma duração errada pra sleep
 #
 
 
