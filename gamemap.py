@@ -5,7 +5,7 @@ Created on Mon May  2 17:07:18 2016
 @author: Alexandre Young
 """
 
-import monster_slime
+import monster
 import torre
 from spawn import Spawn
 
@@ -34,8 +34,8 @@ class GameMap:
     
         
         creaturedict={
-            "Slime": lambda: Slime(self),
-            "Cannon": lambda: Cannon(self)
+            "Slime": lambda: monster.Slime(self),
+            "Cannon": lambda: torre.Cannon(self)
         }
         
         creature= creaturedict[creature]
@@ -78,13 +78,13 @@ class GameMap:
          
 class Tile():
     pixel = 32
-    icon= Imagebank("Default")
+    icon= "Default"
     
     def _init_ (self):
         self.creature = None
     
 class Tile_Grass(Tile):
-    icon= Imagebank("Tile_Grass")
+    icon= "Tile_Grass"
     
 class Tile_Wall(Tile):
-    icon= Imagebank("Tile_Wall")
+    icon= "Tile_Wall"

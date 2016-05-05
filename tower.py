@@ -17,6 +17,11 @@ class Tower():
     def __init__(self, game_map):
         
         self.game_map=game_map
+        
+    def main(self):
+        None
+    #
+#
 
 
 class Cannon(Tower):

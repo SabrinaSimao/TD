@@ -22,10 +22,14 @@ class CycleManager:
     
     def update(self):
         
+        
         for tile_column in self.tile_grid:
             for tile in tile_column:
                 if tile.creature != None:
                     tile.creature.main()
+                    
+        self.cyclecounter+= 1
+        self.cyclecounter%= self.cyclelimit
     #
 #
             
