@@ -24,7 +24,7 @@ class GameMap:
             for j in range(5):
                 self.tile_grid[i + 7][j + 10] = Tile_Wall()
                 
-        self.spawn= Spawn(self, self.tile_grid[0][9])
+        self.spawn= Spawn(self, self.tile_grid[0][12])
         self.castle= Castle()
     #
     
