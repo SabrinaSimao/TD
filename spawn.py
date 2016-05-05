@@ -1,7 +1,8 @@
 class Spawn:
     ##
     #Overview:
-    #
+    #Spawn controla e define a sequência de monstros a serem criados
+    #A classe GameMap contem uma instância de Spawn para cada ponto origem de monstros
     ##
     #Atributos:
     #
@@ -9,12 +10,13 @@ class Spawn:
     #   - self.cycle - intervalo em ciclos até a próima execução de main()
     #   - mapa - Referência ao objeto Mapa, para pedir para ele criar os monstros
     
-    def __init__ (self, mapa):
+    def __init__ (self, mapa, home):
         
         self.wave_wait= 600
         self.cycle= self.wave_wait
         self.current_wave= None
         self.mapa= mapa
+        self.home= home #objeto tipo Tile, onde o Spawn se encontra
         
         
         

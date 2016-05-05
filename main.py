@@ -6,7 +6,7 @@ Created on Wed May  4 13:04:42 2016
 """
 
 import pygame
-import gamemap
+from gamemap import GameMap
 
 class CycleManager:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
@@ -37,10 +37,10 @@ class DrawManager:
         'Slime': pygame.image.load('pictures\slime.png'),
         'Cannon': pygame.image.load('pictures\cannon.png')}
 
-    def __init__(self, map, canvas):
+    def __init__(self, game_map, canvas):
         self.canvas= canvas
-        self.tile_grid= map.tile_grid
-        self.sprite_size= Tile.pixel
+        self.tile_grid= game_map.tile_grid
+        self.sprite_size= self.tile_grid[0][0].pixel
         
         self.canvas.init()
         self.canvas.set_mode(self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid))
@@ -55,7 +55,7 @@ class DrawManager:
         #deseha tiles:
         for height in len(self.tile_grid):
             for width in len(self.tile_grid[height]):
-                self.canvas.blit(image_bank[tile_grid[height][width].icon], [width*sprite_size, height*sprite_size])
+                self.canvas.blit(self.image_bank[self.tile_grid[height][width].icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
             
@@ -63,11 +63,11 @@ class DrawManager:
         for height in len(self.tile_grid):
             for width in len(self.tile_grid[height]):
                 
-                if tile_grid[height][width].creature != None:
-                    self.canvas.blit(image_bank[tile_grid[height][width].creature.icon], [width*sprite_size, height*sprite_size])
+                if self.tile_grid[height][width].creature != None:
+                    self.canvas.blit(self.image_bank[self.tile_grid[height][width].creature.icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
-        canvas.flip()
+        self.canvas.flip()
     #
 #
             

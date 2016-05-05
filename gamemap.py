@@ -7,23 +7,23 @@ Created on Mon May  2 17:07:18 2016
 
 import monster_slime
 import torre
-import imagebank
+from spawn import Spawn
 
 class GameMap:
     
     def __init__(self):
         
         #tile_grid: contém a grid de Tiles
-        tile_grid= []
+        self.tile_grid= []
         for i in range(19):
-           tile_grid.append([])
+           self.tile_grid.append([])
            for j in range(25):
-                tile_grid.append[i](Tile_Grass())
+                self.tile_grid.append[i](Tile_Grass())
         for i in range (5):
             for j in range(5):
-                tile_grid[i + 7][j + 10] = Tile_Wall()
+                self.tile_grid[i + 7][j + 10] = Tile_Wall()
                 
-        #TODO: decidir como implementar os pontos de Spawn e o Castelo no mapa
+        self.spawn= Spawn(self, self.tile_grid[0][9])
     #
     
     
@@ -40,12 +40,18 @@ class GameMap:
         
         creature= creaturedict[creature]
         
-        location={
+        locationdict={
             "Mouse": lambda: self.mouse_pos_obj(),
-#            "Spawn": #primeiro decidir de que forma guardar o ponto de spawn no mapa
+            "Spawn": self.spawn.home
         }
         
         
+        target_tile= locationdict[location]
+        
+        if target_tile.creature != None:
+            target_tile.creature= creaturedict[creature]
+            return 1 #sinal de que criou com sucesso
+        return -1 #sinal de que não conseguiu criar
     #
         
 #    def 
