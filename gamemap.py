@@ -37,7 +37,7 @@ class GameMap:
         
         creaturedict={
             "Slime": lambda: monster.Slime(self),
-            "Cannon": lambda: torre.Cannon(self)
+            "Cannon": lambda: tower.Cannon(self)
         }
         
         creature= creaturedict[creature]
@@ -82,15 +82,11 @@ class Tile():
     pixel = 32
     icon= "Default"
     
-    def _init_ (self):
+    def __init__ (self):
         self.creature = None
     
 class Tile_Grass(Tile):
     icon= "Tile_Grass"
-    def _init_ (self):
-        self.creature = None
     
 class Tile_Wall(Tile):
     icon= "Tile_Wall"
-    def _init_ (self):
-        self.creature = None
