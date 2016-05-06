@@ -64,6 +64,7 @@ class Monster( Actionable):
         
 class Tower( Actionable):
     attack_range= 0
+    cost = 1
         
     def activate( self):
         self.watchlist= []
