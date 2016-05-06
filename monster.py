@@ -51,12 +51,18 @@ class Slime (Monster):
     
 class Slime_nobg (Monster):
     icon = "Slime_nobg"
+    hp_max = 10
+    cycle= 60
 
 class GlassSlime (Monster):
     icon = "GlassSlime"
+    hp_max = 50
+    cycle= 120
 
 class JohnnyBravoSlime (Monster):
     icon = "JohnnyBravoSlime"
+    hp_max = 30
+    cycle= 60
 
 #class FatSlime (Monster):
 #    icon = "FatSlime"

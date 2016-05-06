@@ -24,7 +24,7 @@ class Spawn:
         self.wave_list=[]
         
         self.wave_list.append( Wave(180, ["Slime", "Slime_nobg", "Slime"]) )
-        self.wave_list.append( Wave(120, ["Slime","Slime_nobg", "JohnnyBravoSlime", "GlassSlime", "Slime_nobg", "Slime"]) )
+        self.wave_list.append( Wave(120, ["Slime","Slime_nobg", "JohnnyBravoSlime", "Slime", "Slime_nobg", "GlassSlime"]) )
         ##
         
     def main(self):
