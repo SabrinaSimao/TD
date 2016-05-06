@@ -46,3 +46,9 @@ class Slime (Monster):
     hp_max = 10
     cycle= 60
     
+class Slime_nobg (Monster):
+    icon = "Slime_nobg"
+
+
+class JohnnyBravoSlime (Monster):
+    icon = "JohnnyBravoSlime"

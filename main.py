@@ -48,6 +48,10 @@ class DrawHandler:
         'Tile_Grass': pygame.image.load('pictures\grass.bmp'),
         'Tile_Wall': pygame.image.load('pictures\wall.bmp'),
         'Slime': pygame.image.load('pictures\slime.png'),
+        'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
+        'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
+        'JohnnyBravoSlime': pygame.image.load('pictures\johnnybravoslime_no_bg.png'),
+#        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png')}
 
     def __init__(self, game_map, display):

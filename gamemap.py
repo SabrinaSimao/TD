@@ -102,6 +102,9 @@ class GameMap:
         
         creaturedict={
             "Slime": monster.Slime,
+            "Slime_nobg": monster.Slime_nobg,
+            "GlassSlime": monster.GlassSlime,
+            "JohnnyBravoSlime": monster.JohnnyBravoSlime,
             "Cannon": tower.Cannon
         }
         
