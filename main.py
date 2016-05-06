@@ -6,6 +6,7 @@ Created on Wed May  4 13:04:42 2016
 """
 
 import pygame
+from mouse import mouse_pos_obj as mouse
 from gamemap import GameMap
 
 class CycleHandler:
@@ -78,6 +79,14 @@ class DrawHandler:
                 
                 if self.tile_grid[height][width].creature != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].creature.icon], [width*self.sprite_size, height*self.sprite_size])
+                    
+        
+        #desenha as torres
+        for height in range(len(self.tile_grid)):
+            for width in range(len(self.tile_grid[height])):
+                mouse_pressed = pygame.mouse.get_pressed()
+                if mouse_pressed[0] == True:
+                    GameMap.create(self, "Cannon", mouse(self.tile_grid))
             #
         #
         self.display.flip()
@@ -106,18 +115,26 @@ current_time= pygame.time.get_ticks
 sleep= pygame.time.wait
 
 #Main
-while True:
+done = False
+
+while not done:
     
     initial_time= current_time()
     cycle.update()
     draw.update()
     event.update()
+    keys=pygame.key.get_pressed()
     
     elapsed_time= current_time() - initial_time
     sleep_duration= gamespeed - elapsed_time
     
     if sleep_duration > 0:
         sleep(sleep_duration)
+        
+    if keys[pygame.K_ESCAPE]:
+        pygame.QUIT == True
+        done = True
+        
 #
 
 
