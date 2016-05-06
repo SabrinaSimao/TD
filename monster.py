@@ -49,6 +49,11 @@ class Slime (Monster):
 class Slime_nobg (Monster):
     icon = "Slime_nobg"
 
+class GlassSlime (Monster):
+    icon = "GlassSlime"
 
 class JohnnyBravoSlime (Monster):
     icon = "JohnnyBravoSlime"
+
+#class FatSlime (Monster):
+#    icon = "FatSlime"
