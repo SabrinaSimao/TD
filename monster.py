@@ -5,14 +5,15 @@ class Monster:
     
     
     def __init__ (self, game_map, home):
-        self.mapa= mapa
+        self.game_map= game_map
         self.home= home
         self.game_map= game_map
+        self.hp_current= self.hp_max
     
     def main(self):
         #função que executa o monstro, chamada por CycleManager
         self.move()
-        if self.current_hp == 0:
+        if self.hp_current == 0:
             self.mapa.erase(self)
             
     def move(self):
@@ -24,7 +25,19 @@ class Monster:
         #em falha:
         #nada
     
-        None
+        target_tile= self.game_map.get_adjacent_tile(self.home, "Down")
+        if target_tile!= None:
+            if self.game_map.create(self, target_tile) == 1:
+                self.game_map.erase(self, self.home)
+                self.home= target_tile
+                if self.game_map.castle.tile_is_castle(self.home):
+                    self.invade()
+                    
+    def invade(self):
+        #em caráter temporário:
+        self.game_map.castle.take_damage(1)
+        self.game_map.erase(self, self.home)
+        
     
         
 

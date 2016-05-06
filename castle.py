@@ -12,8 +12,8 @@ class Castle:
         self.home= home
     
             
-    def take_damage(self): #leva 1 ponto de dano, se a vida <= 0 retorna menos 1
-        self.hp_current -= 1
+    def take_damage(self, damage):
+        self.hp_current -= damage
         if self.hp_current <= 0:
             return -1
             

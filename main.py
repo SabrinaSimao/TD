@@ -23,13 +23,16 @@ class CycleHandler:
     
     def update(self):
         
-        
+        routine_buffer=[]
         for tile_column in self.tile_grid:
             for tile in tile_column:
                 if tile.creature != None:
                     if tile.creature.cycle != 0 and self.cyclecounter % tile.creature.cycle == 0:
-                        tile.creature.main()
-                        
+                        routine_buffer.append( tile.creature.main)
+        
+        for routine in routine_buffer:
+            routine()
+        
         if self.cyclecounter % self.spawn.cycle == 0:
             self.spawn.main()
                     

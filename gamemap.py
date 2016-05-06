@@ -39,7 +39,7 @@ class GameMap:
         self.castle= Castle(castle_home)
     #
     
-    def get_adjacent_tile(tile, direction):
+    def get_adjacent_tile(self, tile, direction):
         ##  Overview
         #  recebe uma tile e uma direção (cima, baixo, etc) e 
         # retorna a tile adjacente na direção dada
@@ -51,12 +51,39 @@ class GameMap:
         #----------------------------------------------------------------------
         ##  Retorno:
         #  Tile adjacent_tile que é a tile adjacente a ser entregue
-        #  int-1 em caso de falha, se não houver uma tile adjacente na direção
+        #  None em caso de falha, se não houver uma tile adjacente na direção
         # dada, por exemplo quando você busca por tile_grid[0][0] com direção
         # "Up"
-    
-        None
-    
+        
+        directiondict={
+            "Up": [-1, 0],
+            "Right": [0, 1],
+            "Down": [1, 0],
+            "Left": [0, -1]
+        }
+        
+        found= False
+        x=-1
+        y=-1
+        #acha a posição x, y da tile na grid
+        for i in range(len (self.tile_grid)):
+            for j in range (len (self.tile_grid[i])):
+                if self.tile_grid[i][j] == tile:
+                    x= i
+                    y= j
+                    found= True
+                    break
+        
+        if  not found:
+            return None
+        
+        x+= directiondict[direction][0]
+        y+= directiondict[direction][1]
+        
+        if x >= 0 and y >= 0 and x < len(self.tile_grid) and y < len(self.tile_grid[0]):
+            ##DEBUG:
+            return self.tile_grid[x][y]
+        return None
     
     def create(self, creature, target_tile):
         ##  Overview
@@ -81,7 +108,7 @@ class GameMap:
         if target_tile.creature == None:
             #checagem de se creature é uma chave ou objeto
             if isinstance(creature, str):
-                creature= creaturedict[creature](self)
+                creature= creaturedict[creature](self, target_tile)
             target_tile.creature= creature
             return 1 #sinal de que criou com sucesso
         return -1 #sinal de que não conseguiu criar
