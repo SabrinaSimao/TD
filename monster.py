@@ -3,7 +3,7 @@ from actionable import Monster
 class Slime (Monster):
     icon = "Slime"
     hp_max = 10
-    cycle= 60
+    wait= 60
     
 class Slime_nobg (Monster):
     icon = "Slime_nobg"

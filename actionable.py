@@ -14,8 +14,8 @@ class Actionable:
     def __init__( self, game_map, home):
         self.game_map= game_map
         self.home= home
-        self.activate()
         self.cycle= 1
+        self.activate()
         
     def activate():
         None
