@@ -156,3 +156,24 @@ class Tile_Grass(Tile):
     
 class Tile_Wall(Tile):
     icon= "Tile_Wall"
+    
+class Tile_Door(Tile):
+    icon= "Tile_Door"
+    
+class Tile_Dirt(Tile):
+    icon= "Tile_Dirt"
+    
+class Tile_Mountain(Tile):
+    icon= "Tile_Mountain"
+    
+class Tile_Farm(Tile):
+    icon= "Tile_Farm"
+
+class Tile_Tree(Tile):
+    icon= "Tile_Tree"
+    
+class Tile_Water(Tile):
+    icon= "Tile_Water"
+    
+class Tile_Highgrass(Tile):
+    icon= "Tile_Highgrass"
