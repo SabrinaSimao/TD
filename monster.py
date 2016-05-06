@@ -13,11 +13,9 @@ class Monster:
     def main(self):
         #função que executa o monstro, chamada por CycleManager
         self.move()
-        if self.hp_current == 0:
-            self.mapa.erase(self)
             
     def move(self):
-        #tenta se pra a tile abaixo
+        #tenta se mover para a tile abaixo
         #em sucesso:
         #retirar sua instância da tile anterior
         #atualziar home
@@ -32,6 +30,11 @@ class Monster:
                 self.home= target_tile
                 if self.game_map.castle.tile_is_castle(self.home):
                     self.invade()
+    
+    def take_damage(self, damage):
+        self.hp_current -= damage
+        if self.hp_current <= 0:
+            self.game_map.erase(self, self.home)
                     
     def invade(self):
         #em caráter temporário:

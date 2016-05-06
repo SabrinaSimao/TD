@@ -80,7 +80,7 @@ class GameMap:
         x+= directiondict[direction][0]
         y+= directiondict[direction][1]
         
-        if x >= 0 and y >= 0 and x < len(self.tile_grid) and y < len(self.tile_grid[0]):
+        if x >= 0 and y >= 0 and x < len(self.tile_grid) and y < len(self.tile_grid[x]):
             ##DEBUG:
             return self.tile_grid[x][y]
         return None
