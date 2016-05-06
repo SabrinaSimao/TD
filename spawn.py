@@ -7,7 +7,7 @@ class Spawn:
     #Atributos:
     #
     #   - wave_wait - intervalo de criação entre o fim de uma wave e a próxima, em ciclos 
-    #   - self.cycle - intervalo em ciclos até a próima execução de main()
+    #   - self.cycle - intervalo em ciclos até a próima execução de action()
     #   - mapa - Referência ao objeto Mapa, para pedir para ele criar os monstros
     
     def __init__ (self, game_map, home):
@@ -27,7 +27,7 @@ class Spawn:
         self.wave_list.append( Wave(120, ["Slime","Slime_nobg", "JohnnyBravoSlime", "Slime", "Slime_nobg", "GlassSlime"]) )
         ##
         
-    def main(self):
+    def action(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.current_wave == None:
             self.current_wave= (self.wave_list[0])

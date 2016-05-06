@@ -10,7 +10,6 @@ class Castle:
         self.hp_max = 10
         self.hp_current = self.hp_max
         self.home= home
-    
             
     def take_damage(self, damage):
         self.hp_current -= damage

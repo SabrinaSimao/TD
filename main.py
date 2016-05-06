@@ -26,15 +26,15 @@ class CycleHandler:
         routine_buffer=[]
         for tile_column in self.tile_grid:
             for tile in tile_column:
-                if tile.creature != None:
-                    if tile.creature.cycle != 0 and self.cyclecounter % tile.creature.cycle == 0:
-                        routine_buffer.append( tile.creature.main)
+                if tile.actionable != None:
+                    if tile.actionable.cycle != 0 and self.cyclecounter % tile.actionable.cycle == 0:
+                        routine_buffer.append( tile.actionable.action)
         
         for routine in routine_buffer:
             routine()
         
         if self.cyclecounter % self.spawn.cycle == 0:
-            self.spawn.main()
+            self.spawn.action()
                     
         self.cyclecounter+= 1
         self.cyclecounter%= self.cyclelimit
@@ -80,8 +80,8 @@ class DrawHandler:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
                 
-                if self.tile_grid[height][width].creature != None:
-                    self.canvas.blit(self.image_bank[self.tile_grid[height][width].creature.icon], [width*self.sprite_size, height*self.sprite_size])
+                if self.tile_grid[height][width].actionable != None:
+                    self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
         self.display.flip()

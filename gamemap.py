@@ -4,7 +4,7 @@ Created on Mon May  2 17:07:18 2016
 
 @author: Alexandre Young
 """
-
+from actionable import Actionable
 import monster
 import tower
 from castle import Castle
@@ -85,22 +85,22 @@ class GameMap:
             return self.tile_grid[x][y]
         return None
     
-    def create(self, creature, target_tile):
+    def create(self, actionable, target_tile):
         ##  Overview
-        #  cria ou clone uma instância de uma criatura para um Tile alvo
+        #  cria ou clone uma instância tipo Actionable para um Tile alvo
         #----------------------------------------------------------------------
         ##  Parâmetros:
-        #  creature: pode ser tanto uma chave em String correspondente a
+        #  actionable: pode ser tanto uma chave em String correspondente a
         # um tipo de Monster ou Tower, para a criação de uma nova instância,
         # ou uma instância desses tipos, para mover uma já existente
-        # target_tile: instância de Tile onde criar a criatura
+        # target_tile: instância de Tile onde criar o actionable
         #----------------------------------------------------------------------
         ## Retorno:
         #  int 1 em caso de sucesso
         #  int -1 em caso de falha
     
         
-        creaturedict={
+        key_dict={
             "Slime": monster.Slime,
             "Slime_nobg": monster.Slime_nobg,
             "GlassSlime": monster.GlassSlime,
@@ -109,11 +109,11 @@ class GameMap:
             "Cannon": tower.Cannon
         }
         
-        if target_tile.creature == None:
-            #checagem de se creature é uma chave ou objeto
-            if isinstance(creature, str):
-                creature= creaturedict[creature](self, target_tile)
-            target_tile.creature= creature
+        if target_tile.actionable == None:
+            #checagem de se actionable é uma chave ou objeto
+            if isinstance(actionable, str):
+                actionable= key_dict[actionable](self, target_tile)
+            target_tile.actionable= actionable
             return 1 #sinal de que criou com sucesso
         return -1 #sinal de que não conseguiu criar
     #
@@ -123,22 +123,22 @@ class GameMap:
          
     #
          
-    def erase(self, target_creature, target_tile):
+    def erase(self, target_actionable, target_tile):
         ##  Overview
-        #  apaga a criatura em location
-        #  recebe também a criatura a ser apagada como mecanismo de autenticação
-        #  dessa forma criaturas podem apagar só a si mesmas
+        #  apaga a instância de Actionable na Tile dada
+        #  O actionable é recebido como mecanismo de autenticação
+        #  dessa forma actionables podem apagar somente a si mesmas
         #----------------------------------------------------------------------
         ##  Parâmetros
-        #  target_creature: instância de Monster ou Tower a ser apagada
-        #  target_tile: instância de Tile que contém a criatura a ser apagada
+        #  target_actionable: instância tipo Actionable
+        #  target_tile: instância de Tile que contém o actionable a ser apagado
         #----------------------------------------------------------------------
         #  Retorno
         #  int 1 em caso de sucesso
         #  int -1 em caso de falha
         
-        if target_tile.creature == target_creature:
-            target_tile.creature= None
+        if target_tile.actionable == target_actionable:
+            target_tile.actionable= None
             return 1
         return -1
     #
@@ -149,7 +149,7 @@ class Tile():
     icon= "Default"
     
     def __init__ (self):
-        self.creature = None
+        self.actionable = None
     
 class Tile_Grass(Tile):
     icon= "Tile_Grass"
