@@ -6,7 +6,6 @@ Created on Wed May  4 13:04:42 2016
 """
 
 import pygame
-from mouse import mouse_pos_obj as mouse
 from gamemap import GameMap
 
 class CycleHandler:
@@ -83,14 +82,6 @@ class DrawHandler:
                 
                 if self.tile_grid[height][width].creature != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].creature.icon], [width*self.sprite_size, height*self.sprite_size])
-                    
-        
-        #desenha as torres
-        for height in range(len(self.tile_grid)):
-            for width in range(len(self.tile_grid[height])):
-                mouse_pressed = pygame.mouse.get_pressed()
-                if mouse_pressed[0] == True:
-                    GameMap.create(self, "Cannon", mouse(self.tile_grid))
             #
         #
         self.display.flip()
@@ -99,11 +90,28 @@ class DrawHandler:
 
 class EventHandler:
     
-    def __init__(self, event):
+    def __init__(self, game_map, event, mouse):
+        self.game_map= game_map
         self.event= event
+        self.mouse= mouse
+        self.mouse_state= False
+        self.mouse_tile= None
     
     def update(self):
         self.event.pump()
+        
+        x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
+        self.mouse_tile= self.game_map.tile_grid[y][x]
+        
+        if self.mouse.get_pressed()[0] != self.mouse_state:
+            if self.mouse.get_pressed()[0] == False:
+                self.mouse_state= False
+            else:
+                self.mouse_event()
+    
+    def mouse_event(self):
+        self.game_map.create("Cannon", self.mouse_tile)
+        self.mouse_state= True
 #
             
             
@@ -112,7 +120,7 @@ class EventHandler:
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
 cycle= CycleHandler(game_map)
-event= EventHandler(pygame.event)
+event= EventHandler(game_map, pygame.event, pygame.mouse)
 gamespeed= 17 #em milissegundos de duração de cada ciclo
 
 current_time= pygame.time.get_ticks
