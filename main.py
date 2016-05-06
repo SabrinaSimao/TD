@@ -90,16 +90,21 @@ class DrawHandler:
 
 class EventHandler:
     
-    def __init__(self, game_map, event, mouse):
+    def __init__(self, game_map, event, mouse, keys):
         self.game_map= game_map
         self.event= event
         self.mouse= mouse
         self.mouse_state= False
         self.mouse_tile= None
+        self.keys= keys
+        self.quit= False
     
     def update(self):
-        self.event.pump()
+        self.window_event()
+        self.keyboard_event()
+        self.mouse_event()
         
+        #Mouse events:
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
         self.mouse_tile= self.game_map.tile_grid[y][x]
         
@@ -108,10 +113,30 @@ class EventHandler:
                 self.mouse_state= False
             else:
                 self.mouse_event()
+                
+    def window_event(self):
+        self.event.pump()
+        
+        if self.event.peek(pygame.QUIT):
+            self.quit= True
+        
+                
+    def keyboard_event(self):
+        if self.keys.get_pressed()[pygame.K_ESCAPE]:
+            self.quit= True
     
     def mouse_event(self):
-        self.game_map.create("Cannon", self.mouse_tile)
-        self.mouse_state= True
+        #Atualiza tile que o mouse está em cima
+        x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
+        self.mouse_tile= self.game_map.tile_grid[y][x]
+        
+        #Trata do que fazer no clique do botão
+        if self.mouse.get_pressed()[0] != self.mouse_state:
+            if self.mouse.get_pressed()[0] == False:
+                self.mouse_state= False
+            else:
+                self.game_map.create("Cannon", self.mouse_tile)
+                self.mouse_state= True
 #
             
             
@@ -120,69 +145,24 @@ class EventHandler:
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
 cycle= CycleHandler(game_map)
-event= EventHandler(game_map, pygame.event, pygame.mouse)
+event= EventHandler(game_map, pygame.event, pygame.mouse, pygame.key)
 gamespeed= 17 #em milissegundos de duração de cada ciclo
 
 current_time= pygame.time.get_ticks
 sleep= pygame.time.wait
 
 #Main
-done = False
-pygame.mouse.set_pos(0,0)
 
-while not done:
+while not event.quit:
     
     initial_time= current_time()
     cycle.update()
     draw.update()
     event.update()
-    keys=pygame.key.get_pressed()
     
     elapsed_time= current_time() - initial_time
     sleep_duration= gamespeed - elapsed_time
     
     if sleep_duration > 0:
-        sleep(sleep_duration)
-        
-    if keys[pygame.K_ESCAPE]:
-        done = True
-        
-    for i in pygame.event.get():
-        if i.type == pygame.QUIT:
-            done = True
-        
+        sleep(sleep_duration)        
 #
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
