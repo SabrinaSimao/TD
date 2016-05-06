@@ -116,6 +116,7 @@ sleep= pygame.time.wait
 
 #Main
 done = False
+pygame.mouse.set_pos(0,0)
 
 while not done:
     
@@ -132,8 +133,11 @@ while not done:
         sleep(sleep_duration)
         
     if keys[pygame.K_ESCAPE]:
-        pygame.QUIT == True
         done = True
+        
+    for i in pygame.event.get():
+        if i.type == pygame.QUIT:
+            done = True
         
 #
 

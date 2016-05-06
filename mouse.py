@@ -11,4 +11,4 @@ def mouse_pos_obj(tile_grid):
     mouse_x = pygame.mouse.get_pos()[0]
     mouse_y = pygame.mouse.get_pos()[1]
     posição_x,posição_y = [mouse_x//32, mouse_y//32]
-    return tile_grid[posição_x][posição_y]
+    return tile_grid[posição_y][posição_x]
