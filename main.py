@@ -8,6 +8,11 @@ Created on Wed May  4 13:04:42 2016
 import pygame
 from gamemap import GameMap
 
+#não sei se da para não importar esses dois,seria necessário fazer 
+# o jogo checar se o player tem dinheiro suficiente em outro lugar
+import castle
+import tower
+
 class CycleHandler:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
 
@@ -90,7 +95,7 @@ class DrawHandler:
 
 class EventHandler:
     
-    def __init__(self, game_map, event, mouse, keys):
+    def __init__(self, game_map, event, mouse, keys,):
         self.game_map= game_map
         self.event= event
         self.mouse= mouse
@@ -98,6 +103,7 @@ class EventHandler:
         self.mouse_tile= None
         self.keys= keys
         self.quit= False
+        self.castle = castle.Castle
     
     def update(self):
         self.window_event()
@@ -132,9 +138,11 @@ class EventHandler:
         
         #Trata do que fazer no clique do botão
         if self.mouse.get_pressed()[0] != self.mouse_state:
+            
             if self.mouse.get_pressed()[0] == False:
                 self.mouse_state= False
-            else:
+            elif castle.Castle.gold >= tower.Cannon.cost: #não tenho a menor ideia porque esta dando erro aqui
+                castle.Castle.gold -=  tower.Cannon.cost # o tower.Cannon.cost esta funcionando mas o castle.Castle.gold não esta
                 self.game_map.create("Cannon", self.mouse_tile)
                 self.mouse_state= True
 #
