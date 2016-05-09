@@ -4,6 +4,7 @@ Created on Fri May  6 17:38:56 2016
 
 @author: Alexandre Young
 """
+import gamemap
 
 class Actionable:
 
@@ -55,6 +56,7 @@ class Monster( Actionable):
     def take_damage( self, damage):
         self.hp_current -= damage
         if self.hp_current <= 0:
+            #game_map.castle.
             self.game_map.erase(self, self.home)
                     
     def invade( self):

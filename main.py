@@ -10,7 +10,6 @@ from gamemap import GameMap
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
-import castle
 import tower
 
 class CycleHandler:
@@ -103,7 +102,6 @@ class EventHandler:
         self.mouse_tile= None
         self.keys= keys
         self.quit= False
-        self.castle = castle.Castle
     
     def update(self):
         self.window_event()
@@ -141,8 +139,8 @@ class EventHandler:
             
             if self.mouse.get_pressed()[0] == False:
                 self.mouse_state= False
-            elif castle.Castle.gold >= tower.Cannon.cost: #não tenho a menor ideia porque esta dando erro aqui
-                castle.Castle.gold -=  tower.Cannon.cost # o tower.Cannon.cost esta funcionando mas o castle.Castle.gold não esta
+            elif game_map.castle.gold >= tower.Cannon.cost:
+                game_map.castle.gold -=  tower.Cannon.cost 
                 self.game_map.create("Cannon", self.mouse_tile)
                 self.mouse_state= True
 #

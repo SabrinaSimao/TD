@@ -19,8 +19,8 @@ class Castle:
         if self.hp_current <= 0:
             return -1
             
-    def gain_gold(self): #quando tiver mais de um monstro isso vai precisar de mais 1 argumento
-        self.gold += 5 #tirar o 5 e colar um valor para cada monstro
+    def gain_gold(self):
+        self.gold += 5
             
     def tile_is_castle(self, tile):
         ##  Overview
