@@ -64,7 +64,7 @@ class DrawHandler:
         self.display= display
         
         self.display.init()
-        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0] ), self.sprite_size*len(self.tile_grid)])
+        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
     #
         
