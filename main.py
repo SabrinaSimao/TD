@@ -49,7 +49,7 @@ class DrawHandler:
     #desenha os sprites na tela a cada ciclo de jogo
     image_bank= {
         'Tile_Grass': pygame.image.load('pictures\grass.bmp'),
-        'Tile_Wall': pygame.image.load('pictures\wall.bmp'),
+        'Tile_Wall': pygame.image.load('pictures\wall.png'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
