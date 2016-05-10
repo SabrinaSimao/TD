@@ -4,7 +4,6 @@ Created on Fri May  6 17:38:56 2016
 
 @author: Alexandre Young
 """
-import gamemap
 
 class Actionable:
 
@@ -56,7 +55,7 @@ class Monster( Actionable):
     def take_damage( self, damage):
         self.hp_current -= damage
         if self.hp_current <= 0:
-            #game_map.castle.
+            self.game_map.castle.gain_gold(5)#mudar o 5 por uma variavel para cadas monstro, 5 = quantidade de gold a ser ganha
             self.game_map.erase(self, self.home)
                     
     def invade( self):
