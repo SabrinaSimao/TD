@@ -110,7 +110,12 @@ class EventHandler:
         
         #Mouse events:
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
-        self.mouse_tile= self.game_map.tile_grid[y][x]
+        print(x)
+        if x <= 24:
+            self.mouse_tile= self.game_map.tile_grid[y][x]
+        else:
+            pass
+        
         
         if self.mouse.get_pressed()[0] != self.mouse_state:
             if self.mouse.get_pressed()[0] == False:
@@ -132,7 +137,10 @@ class EventHandler:
     def mouse_event(self):
         #Atualiza tile que o mouse está em cima
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
-        self.mouse_tile= self.game_map.tile_grid[y][x]
+        if x <= 24:
+            self.mouse_tile= self.game_map.tile_grid[y][x]
+        else:
+            pass
         
         #Trata do que fazer no clique do botão
         if self.mouse.get_pressed()[0] != self.mouse_state:
