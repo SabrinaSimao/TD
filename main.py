@@ -110,7 +110,6 @@ class EventHandler:
         
         #Mouse events:
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
-        print(x)
         if x <= 24:
             self.mouse_tile= self.game_map.tile_grid[y][x]
         else:
@@ -147,8 +146,8 @@ class EventHandler:
             
             if self.mouse.get_pressed()[0] == False:
                 self.mouse_state= False
-            elif game_map.castle.gold >= tower.Cannon.cost:
-                game_map.castle.gold -=  tower.Cannon.cost 
+            elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home:
+                game_map.castle.gold -=  tower.Cannon.cost
                 self.game_map.create("Cannon", self.mouse_tile)
                 self.mouse_state= True
 #
