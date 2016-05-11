@@ -22,17 +22,53 @@ class GameMap:
     #  spawn: instância de Spawn, por enquanto apenas um exist em todo o mapa
     #  castle: instância de castle, apenas um existe
 
-    def __init__(self):
-        self.tile_grid= []
-        for i in range(19):
-           self.tile_grid.append([])
-           for j in range(25):
-                self.tile_grid[i].append(Tile_Grass())
+
+
+    def __init__(self):     
+    
+        self.tile_grid = [
+            [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,7,7,7,1,1,1,1,1,1,3,1,1,1,1,1,1,6,6,6,1,1,9],
+            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,6,6,1,1,9],
+            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,6,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,2,2,0,2,2,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,9],
+            [9,3,3,3,3,3,3,3,3,3,0,2,2,2,0,3,3,3,3,3,3,3,3,3,9],
+            [9,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,2,2,0,2,2,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,1,1,1,8,1,1,1,1,1,1,3,1,1,1,1,1,1,5,5,1,1,1,9],
+            [9,1,1,1,8,8,1,1,1,1,1,1,3,1,1,1,1,1,5,5,5,5,1,1,9],
+            [9,1,1,8,8,8,1,1,1,1,1,1,3,1,1,1,1,1,1,5,5,1,1,1,9],
+            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]]
+    
+        map_dict = {
+             9 : Tile_Highgrass,
+             8 : Tile_Water,
+             7 : Tile_Tree,
+             6 : Tile_Farm,
+             5 : Tile_Mountain,
+             3 : Tile_Dirt,
+             2 : Tile_Wall,
+             1 : Tile_Grass,
+             0 : Tile_Door
+        }
                 
+        for i in range( len(self.tile_grid)):
+            for j in range( len(self.tile_grid[i])):
+                self.tile_grid[i][j]= map_dict[self.tile_grid[i][j]]()
+            
+        
+        print(self.tile_grid)        
+        
         castle_home=[]
         for i in range (5):
             for j in range(5):
-                self.tile_grid[i + 7][j + 10] = Tile_Wall()
                 castle_home.append( self.tile_grid[i + 7][j + 10])
                 
         self.spawn= Spawn(self, self.tile_grid[0][12])
@@ -150,6 +186,7 @@ class Tile():
     
     def __init__ (self):
         self.actionable = None
+        self.value= 0
     
 class Tile_Grass(Tile):
     icon= "Tile_Grass"
