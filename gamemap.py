@@ -64,7 +64,7 @@ class GameMap:
                 self.tile_grid[i][j]= map_dict[self.tile_grid[i][j]]()
             
         
-        print(self.tile_grid)        
+#        print(self.tile_grid)        
         
         castle_home=[]
         for i in range (5):
