@@ -7,6 +7,7 @@ Created on Wed May  4 13:04:42 2016
 
 import pygame
 from gamemap import GameMap
+import menu
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
@@ -66,6 +67,8 @@ class DrawHandler:
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
+        mouse_position = pygame.mouse.get_pos ()
+        menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
     #
         
     def update(self):
@@ -83,10 +86,16 @@ class DrawHandler:
         #desenha criaturas:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-                
+
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
-            #
+        mouse_position = pygame.mouse.get_pos ()
+        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
+        else:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
+
+            
         #
         self.display.flip()
     #
