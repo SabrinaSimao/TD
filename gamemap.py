@@ -171,6 +171,9 @@ class GameMap:
             "Slime_nobg": monster.Slime_nobg,
             "GlassSlime": monster.GlassSlime,
             "JohnnyBravoSlime": monster.JohnnyBravoSlime,
+            "Slime_MagnataBMP": monster.Slime_MagnataBMP,
+            "Olho": monster.Olho,
+            "Slime_Fire": monster.Slime_Fire,
 #            "FatSlime": monster.FatSlime,
             "Cannon": tower.Cannon
         }
