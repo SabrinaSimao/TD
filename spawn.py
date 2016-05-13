@@ -27,12 +27,12 @@ class Spawn:
         ##Criar as waves e guardar em uma lista
         self.wave_list=[]
         #loop if pra criar wave apenas se acabar a ultima                    
-            lista_de_mobs = []
-            time = int(360 / (self.dificuldade**(1/2))
+        lista_de_mobs = []
+        time = int(360 / (self.dificuldade**(1/2)))
 
-            lista_de_mobs.append(#resolver esse append)
-            self.wave_list.append( Wave(time, [lista_de_mobs]) )
-            self.dificuldade += 2
+        lista_de_mobs.append()#resolver esse append)
+        self.wave_list.append( Wave(time, [lista_de_mobs]) )
+        self.dificuldade += 2
             
             
         ##
@@ -89,4 +89,4 @@ class MonPacket_Boss1:
     monster= ["Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"]
 class MonPacket_Boss2:
     cost= 20
-    monster= ["Slime", "Slime", "Slime", "Slime", "GlassSlime", "Slime_Fire", "Slime_Fire", "Slime_Fire", "Olho", "Olho", "Olho"]]
+    monster= ["Slime", "Slime", "Slime", "Slime", "GlassSlime", "Slime_Fire", "Slime_Fire", "Slime_Fire", "Olho", "Olho", "Olho"]

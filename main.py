@@ -109,17 +109,14 @@ class DrawHandler:
                     
         #desenha partículas:
         for particle in self.particle_list:
-<<<<<<< HEAD
             if particle.icon != None:
                 self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update()
         
-=======
             #print (particle.read_position())
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update() 
 
->>>>>>> origin/master
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
         click = pygame.mouse.get_pressed ()
