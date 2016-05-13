@@ -66,11 +66,14 @@ class DrawHandler:
         'Slime_MagnataBMP': pygame.image.load('pictures\Slime_MagnataBMP.bmp'),
         'Olho': pygame.image.load('pictures\olho.png'),
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
-        'Cannon': pygame.image.load('pictures\cannon.png')}
+        'Cannon': pygame.image.load('pictures\cannon.png'),
+        'Cannonball': pygame.image.load('pictures\particles\cannonball.png')}
 
     def __init__(self, game_map, display):
         self.tile_grid= game_map.tile_grid
+        self.particle_list= game_map.particle_list
         self.sprite_size= self.tile_grid[0][0].pixel
+        self.particle_size= 16 #depois fazer isto em relação ao tamanho marcado na classe
         
         self.display= display
         
@@ -97,9 +100,15 @@ class DrawHandler:
         #desenha criaturas:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
+        #
+                    
+        #desenha partículas:
+        for particle in self.particle_list:
+            #print (particle.read_position())
+            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
+            particle.update() 
         
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
@@ -109,8 +118,6 @@ class DrawHandler:
             menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
         else:
             menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
-            
-
             
         
         self.display.flip()

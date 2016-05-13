@@ -7,7 +7,6 @@ Created on Fri May  6 17:38:56 2016
 
 class Actionable:
 
-    damage= 1
     wait= 60
     icon= "Default"
     
@@ -25,7 +24,7 @@ class Actionable:
 
 class Monster( Actionable):
     hp_max= 10
-    
+    damage= 1
     
     def activate ( self):
         self.hp_current= self.hp_max
@@ -66,6 +65,8 @@ class Monster( Actionable):
 class Tower( Actionable):
     attack_range= 0
     cost = 1
+    bullet= "Default"
+    reload_time= 60
         
     def activate( self):
         self.watchlist= []
@@ -95,7 +96,7 @@ class Tower( Actionable):
         
         for tile in self.watchlist:
             if isinstance(tile.actionable, Monster):
-                return tile.actionable
+                return tile
         return None
         
     def action( self):
@@ -103,7 +104,7 @@ class Tower( Actionable):
         
         target= self.seek_target()
         if target != None:
-            target.take_damage( self.damage)
-            self.cycle= 20
+            self.game_map.create_particle("Cannonball", self.home, target)
+            self.cycle= self.reload_time
     #
 #
