@@ -97,11 +97,8 @@ class DrawHandler:
         #desenha criaturas:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
-<<<<<<< HEAD
-            #
         #
                     
         #desenha partículas:
@@ -109,7 +106,6 @@ class DrawHandler:
             #print (particle.read_position())
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update() 
-=======
         
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
@@ -120,9 +116,6 @@ class DrawHandler:
         else:
             menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
             
-
-            
->>>>>>> origin/master
         
         self.display.flip()
     #
