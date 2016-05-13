@@ -75,7 +75,8 @@ class DrawHandler:
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
         mouse_position = pygame.mouse.get_pos ()
-        menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
+        click = pygame.mouse.get_pressed ()
+        menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
     #
         
     def update(self):
@@ -96,14 +97,19 @@ class DrawHandler:
 
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
+        
+        #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
+        click = pygame.mouse.get_pressed ()
+        
         if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
-            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
         else:
-            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200))
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+            
 
             
-        #
+        
         self.display.flip()
     #
 #
