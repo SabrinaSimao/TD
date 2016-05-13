@@ -62,6 +62,9 @@ class DrawHandler:
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
         'JohnnyBravoSlime': pygame.image.load('pictures\johnnybravoslime_no_bg.png'),
+        'Slime_Fire': pygame.image.load('pictures\Slime_Fire.png'),
+        'Slime_MagnataBMP': pygame.image.load('pictures\Slime_MagnataBMP.bmp'),
+        'Olho': pygame.image.load('pictures\olho.png'),
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png'),
         'Cannonball': pygame.image.load('pictures\particles\cannonball.png')}
@@ -100,11 +103,13 @@ class DrawHandler:
         #desenha criaturas:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
+<<<<<<< HEAD
 #<<<<<<< HEAD
             #
+=======
+>>>>>>> origin/master
         #
                     
         #desenha partículas:
@@ -112,11 +117,24 @@ class DrawHandler:
             #print (particle.read_position())
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update() 
+<<<<<<< HEAD
 #=======
         
 
             
 #>>>>>>> origin/master
+=======
+        
+        #Parte dos botões
+        mouse_position = pygame.mouse.get_pos ()
+        click = pygame.mouse.get_pressed ()
+        
+        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+        else:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+            
+>>>>>>> origin/master
         
         self.display.flip()
     #
