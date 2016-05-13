@@ -168,7 +168,7 @@ class EventHandler:
             
             if self.mouse.get_pressed()[0] == False:
                 self.mouse_state= False
-            elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home:
+            elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home and self.mouse.get_pos()[0] < 800:
                 game_map.castle.gold -=  tower.Cannon.cost
                 self.game_map.create("Cannon", self.mouse_tile)
                 self.mouse_state= True
