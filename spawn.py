@@ -23,7 +23,7 @@ class Spawn:
         ##Criar as waves e guardar em uma lista
         self.wave_list=[]
         
-        self.wave_list.append( Wave(180, ["Slime_nobg"]) )
+        self.wave_list.append( Wave(180, ["Slime_nobg", "Slime_nobg", "Slime_nobg"]) )
         self.wave_list.append( Wave(120, ["Slime_nobg", "JohnnyBravoSlime", "Slime_nobg", "GlassSlime"]) )
         ##
         
