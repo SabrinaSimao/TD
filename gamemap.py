@@ -202,7 +202,8 @@ class GameMap:
         #  int -1 em caso de falha
         ##
         key_dict={
-            "Cannonball": particle.Cannonball
+            "Cannonball": particle.Cannonball,
+            "Shadow": particle.Shadow
         }
         
         self.particle_list.append(key_dict[target_particle](self, start_tile, end_tile))

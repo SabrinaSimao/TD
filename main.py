@@ -67,6 +67,7 @@ class DrawHandler:
         'Olho': pygame.image.load('pictures\olho.png'),
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png'),
+        'Shadow': pygame.image.load('pictures\particles\shadow.png'),
         'Cannonball': pygame.image.load('pictures\particles\cannonball.png')}
 
     def __init__(self, game_map, display):
@@ -106,9 +107,9 @@ class DrawHandler:
                     
         #desenha partículas:
         for particle in self.particle_list:
-            #print (particle.read_position())
-            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
-            particle.update() 
+            if particle.icon != None:
+                self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
+            particle.update()
         
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
