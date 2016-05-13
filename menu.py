@@ -16,6 +16,8 @@ def cannon_button (mouse_position, screen, x, y, width, height, color1, color2, 
         #Funções do botão
         if click [0] == 1:
             print ('1') #Algo para construir canhão
+            pygame.draw.rect (screen, color2, (x, y, width, height))
+
     else:
         pygame.draw.rect (screen, color2, (x, y, width, height))
         
