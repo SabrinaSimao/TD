@@ -83,8 +83,6 @@ class DrawHandler:
         menu.cannon_button ( self.canvas, 900, 100, 32, 32, (255, 0, 0),)
     #
     def desenhar_botão(self):
-        mouse_position = pygame.mouse.get_pos ()
-        click = pygame.mouse.get_pressed ()
         
         menu.cannon_button (self.canvas, 900, 100, 32, 32, (0, 255, 0))
         
@@ -105,11 +103,7 @@ class DrawHandler:
             for width in range(len(self.tile_grid[height])):
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
-<<<<<<< HEAD
-#<<<<<<< HEAD
-            #
-=======
->>>>>>> origin/master
+
         #
                     
         #desenha partículas:
@@ -117,14 +111,7 @@ class DrawHandler:
             #print (particle.read_position())
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update() 
-<<<<<<< HEAD
-#=======
-        
 
-            
-#>>>>>>> origin/master
-=======
-        
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
         click = pygame.mouse.get_pressed ()
@@ -134,7 +121,6 @@ class DrawHandler:
         else:
             menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
             
->>>>>>> origin/master
         
         self.display.flip()
     #
