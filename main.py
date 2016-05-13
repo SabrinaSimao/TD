@@ -81,10 +81,11 @@ class DrawHandler:
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
-        mouse_position = pygame.mouse.get_pos ()
-        click = pygame.mouse.get_pressed ()
-        menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+        menu.cannon_button ( self.canvas, 900, 100, 32, 32, (255, 0, 0),)
     #
+    def desenhar_botão(self):
+        
+        menu.cannon_button (self.canvas, 900, 100, 32, 32, (0, 255, 0))
         
     def update(self):
         ## Overview: desenha os sprites no mapa
@@ -103,14 +104,22 @@ class DrawHandler:
             for width in range(len(self.tile_grid[height])):
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
+
         #
                     
         #desenha partículas:
         for particle in self.particle_list:
+<<<<<<< HEAD
             if particle.icon != None:
                 self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update()
         
+=======
+            #print (particle.read_position())
+            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
+            particle.update() 
+
+>>>>>>> origin/master
         #Parte dos botões
         mouse_position = pygame.mouse.get_pos ()
         click = pygame.mouse.get_pressed ()
@@ -127,7 +136,7 @@ class DrawHandler:
 
 class EventHandler:
     
-    def __init__(self, game_map, event, mouse, keys,):
+    def __init__(self, game_map, event, mouse, keys, draw):
         self.game_map= game_map
         self.event= event
         self.mouse= mouse
@@ -135,6 +144,8 @@ class EventHandler:
         self.mouse_tile= None
         self.keys= keys
         self.quit= False
+        self.draw= draw
+        self.selected_tower = None
     
     def update(self):
         self.window_event()
@@ -167,6 +178,11 @@ class EventHandler:
             self.quit= True
     
     def mouse_event(self):
+        
+
+
+        
+        
         #Atualiza tile que o mouse está em cima
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
         if x <= 24:
@@ -174,15 +190,30 @@ class EventHandler:
         else:
             pass
         
-        #Trata do que fazer no clique do botão
-        if self.mouse.get_pressed()[0] != self.mouse_state:
+        #Trata do que fazer no clique do botão do mouse
+        
+        #parte do menu
+        mouse_position = pygame.mouse.get_pos ()
+        click = pygame.mouse.get_pressed ()
+        
+        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100 and click[0] == True:
+            print('ola')
+            self.draw.desenhar_botão()
             
-            if self.mouse.get_pressed()[0] == False:
-                self.mouse_state= False
-            elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home:
-                game_map.castle.gold -=  tower.Cannon.cost
-                self.game_map.create("Cannon", self.mouse_tile)
-                self.mouse_state= True
+            self.selected_tower = 'Cannon'
+            
+        
+        #clique nos tiles
+        if self.selected_tower != None: #é inutil clicar nos tiles se  não tiver torre selecionada,tambem quebra o jogo
+        
+            if self.mouse.get_pressed()[0] != self.mouse_state:
+                
+                if self.mouse.get_pressed()[0] == False:
+                    self.mouse_state= False
+                elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home and self.mouse.get_pos()[0] < 800:
+                    game_map.castle.gold -=  tower.Cannon.cost
+                    self.game_map.create(self.selected_tower, self.mouse_tile)
+                    self.mouse_state= True
 #
             
             
@@ -191,7 +222,7 @@ class EventHandler:
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
 cycle= CycleHandler(game_map)
-event= EventHandler(game_map, pygame.event, pygame.mouse, pygame.key)
+event= EventHandler(game_map, pygame.event, pygame.mouse, pygame.key, draw)
 gamespeed= 17 #em milissegundos de duração de cada ciclo
 
 current_time= pygame.time.get_ticks
