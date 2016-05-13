@@ -7,6 +7,7 @@ Created on Wed May  4 13:04:42 2016
 
 import pygame
 from gamemap import GameMap
+import menu
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
@@ -48,8 +49,15 @@ class CycleHandler:
 class DrawHandler:
     #desenha os sprites na tela a cada ciclo de jogo
     image_bank= {
-        'Tile_Grass': pygame.image.load('pictures\grass.bmp'),
-        'Tile_Wall': pygame.image.load('pictures\wall.png'),
+        'Tile_Grass': pygame.image.load('pictures\\tiles\grass.bmp'),
+        'Tile_Wall': pygame.image.load('pictures\\tiles\Tile_Wall.png'),
+        'Tile_Door': pygame.image.load('pictures\\tiles\Tile_Door.bmp'),
+        'Tile_Water': pygame.image.load('pictures\\tiles\Tile_Water.bmp'),
+        'Tile_Farm': pygame.image.load('pictures\\tiles\Tile_Farm.bmp'),
+        'Tile_Highgrass': pygame.image.load('pictures\\tiles\Tile_Highgrass.bmp'),
+        'Tile_Mountain': pygame.image.load('pictures\\tiles\Tile_Mountain.bmp'),
+        'Tile_Tree': pygame.image.load('pictures\\tiles\Tile_Tree.png'),
+        'Tile_Dirt': pygame.image.load('pictures\\tiles\Tile_Dirt.bmp'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
@@ -69,6 +77,9 @@ class DrawHandler:
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
+        mouse_position = pygame.mouse.get_pos ()
+        click = pygame.mouse.get_pressed ()
+        menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
     #
         
     def update(self):
@@ -86,9 +97,10 @@ class DrawHandler:
         #desenha criaturas:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-                
+
                 if self.tile_grid[height][width].actionable != None:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
+<<<<<<< HEAD
             #
         #
                     
@@ -97,6 +109,20 @@ class DrawHandler:
             #print (particle.read_position())
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update() 
+=======
+        
+        #Parte dos botões
+        mouse_position = pygame.mouse.get_pos ()
+        click = pygame.mouse.get_pressed ()
+        
+        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+        else:
+            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+            
+
+            
+>>>>>>> origin/master
         
         self.display.flip()
     #
@@ -120,7 +146,11 @@ class EventHandler:
         
         #Mouse events:
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
-        self.mouse_tile= self.game_map.tile_grid[y][x]
+        if x <= 24:
+            self.mouse_tile= self.game_map.tile_grid[y][x]
+        else:
+            pass
+        
         
         if self.mouse.get_pressed()[0] != self.mouse_state:
             if self.mouse.get_pressed()[0] == False:
@@ -142,15 +172,18 @@ class EventHandler:
     def mouse_event(self):
         #Atualiza tile que o mouse está em cima
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
-        self.mouse_tile= self.game_map.tile_grid[y][x]
+        if x <= 24:
+            self.mouse_tile= self.game_map.tile_grid[y][x]
+        else:
+            pass
         
         #Trata do que fazer no clique do botão
         if self.mouse.get_pressed()[0] != self.mouse_state:
             
             if self.mouse.get_pressed()[0] == False:
                 self.mouse_state= False
-            elif game_map.castle.gold >= tower.Cannon.cost:
-                game_map.castle.gold -=  tower.Cannon.cost 
+            elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home:
+                game_map.castle.gold -=  tower.Cannon.cost
                 self.game_map.create("Cannon", self.mouse_tile)
                 self.mouse_state= True
 #
