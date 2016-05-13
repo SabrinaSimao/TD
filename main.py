@@ -55,11 +55,14 @@ class DrawHandler:
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
         'JohnnyBravoSlime': pygame.image.load('pictures\johnnybravoslime_no_bg.png'),
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
-        'Cannon': pygame.image.load('pictures\cannon.png')}
+        'Cannon': pygame.image.load('pictures\cannon.png'),
+        'Cannonball': pygame.image.load('pictures\particles\cannonball.png')}
 
     def __init__(self, game_map, display):
         self.tile_grid= game_map.tile_grid
+        self.particle_list= game_map.particle_list
         self.sprite_size= self.tile_grid[0][0].pixel
+        self.particle_size= 16 #depois fazer isto em relação ao tamanho marcado na classe
         
         self.display= display
         
@@ -88,6 +91,13 @@ class DrawHandler:
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
             #
         #
+                    
+        #desenha partículas:
+        for particle in self.particle_list:
+            #print (particle.read_position())
+            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
+            particle.update() 
+        
         self.display.flip()
     #
 #

@@ -2,6 +2,7 @@ from actionable import Tower
 
 class Cannon(Tower):
     attack_range= 3
-    damage= 5
+    bullet= "Cannonball"
     icon= "Cannon"
+    reload_time= 40
     cost = 10
