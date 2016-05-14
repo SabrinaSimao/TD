@@ -1,3 +1,4 @@
+import random
 
 class Spawn:
     ##
@@ -31,10 +32,23 @@ class Spawn:
         #loop if pra criar wave apenas se acabar a ultima                    
         if self.current_wave == None:        
             
-            time = int(360 / (self.dificuldade**(1/2)))
+            soma = self.dificuldade
             lista_de_mobs = []
-            lista_de_mobs.append()#resolver esse append)
-            self.wave_list.append( Wave(time, [lista_de_mobs]) )
+
+            while soma > 0:
+                n = 0
+                for i in range(len(self.packet_list)):
+                    if (self.packet_lista[i].cost) <= soma:
+                        n = i
+                    else:
+                        break
+                
+                selecionado = random.randint(0,n)
+                lista_de_mobs.append(self.packet_lista[selecionado])
+                soma -= self.packet_list[selecionado]            
+            
+            time = int(360 / (self.dificuldade**(1/2)))
+            self.wave_list.append( Wave(time, [lista_de_mobs].monster) )
             self.dificuldade += 2
             
             
