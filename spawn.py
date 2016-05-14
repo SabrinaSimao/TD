@@ -21,18 +21,21 @@ class Spawn:
         self.dificuldade = 2
         self.packet_list=[MonPacket1, MonPacket2, MonPacket3, MonPacket4, MonPacket5, MonPacket6, MonPacket7,
                           MonPacket_Boss1, MonPacket_Boss2]
+        self.wave_list1 =[Wave(120, [MonPacket_Boss1])]#Pacote dos Bosses
+        self.wave_list2 =[Wave(80, [MonPacket_Boss2])]
         
     def wave_maker (self):
         
         ##Criar as waves e guardar em uma lista
         self.wave_list=[]
         #loop if pra criar wave apenas se acabar a ultima                    
-        lista_de_mobs = []
-        time = int(360 / (self.dificuldade**(1/2)))
-
-        lista_de_mobs.append()#resolver esse append)
-        self.wave_list.append( Wave(time, [lista_de_mobs]) )
-        self.dificuldade += 2
+        if self.current_wave == None:        
+            
+            time = int(360 / (self.dificuldade**(1/2)))
+            lista_de_mobs = []
+            lista_de_mobs.append()#resolver esse append)
+            self.wave_list.append( Wave(time, [lista_de_mobs]) )
+            self.dificuldade += 2
             
             
         ##
@@ -40,8 +43,13 @@ class Spawn:
     def action(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.current_wave == None:
-            self.current_wave= (self.wave_list[0])
-            self.wave_list.pop(0)
+            if self.dificuldade == 10:
+                self.current_wave = (self.wave_list1[0])#Na fase 10 e na fase 20 serao sempre os mesmos bosses
+            elif self.dificuldade == 20:
+                self.current_wave = (self.wave_list2[0])
+            else:
+                self.current_wave= (self.wave_list[0])
+        self.wave_list.pop(0)
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo

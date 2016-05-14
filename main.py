@@ -17,7 +17,7 @@ class CycleHandler:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
 
     def __init__(self, game_map):
-        
+            
         self.tile_grid= game_map.tile_grid
         self.spawn= game_map.spawn
         self.castle= game_map.castle
