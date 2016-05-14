@@ -1,3 +1,4 @@
+
 class Spawn:
     ##
     #Overview:
@@ -17,14 +18,23 @@ class Spawn:
         self.current_wave= None
         self.game_map= game_map
         self.home= home #objeto tipo Tile, onde o Spawn se encontra
+        self.dificuldade = 2
+        self.packet_list=[MonPacket1, MonPacket2, MonPacket3, MonPacket4, MonPacket5, MonPacket6, MonPacket7,
+                          MonPacket_Boss1, MonPacket_Boss2]
         
-        
+    def wave_maker (self):
         
         ##Criar as waves e guardar em uma lista
         self.wave_list=[]
-        
-        self.wave_list.append( Wave(180, ["Slime", "Slime_nobg", "Slime"]) )
-        self.wave_list.append( Wave(120, ["Slime","Slime_nobg", "JohnnyBravoSlime", "Slime", "Slime_nobg", "GlassSlime"]) )
+        #loop if pra criar wave apenas se acabar a ultima                    
+        lista_de_mobs = []
+        time = int(360 / (self.dificuldade**(1/2)))
+
+        lista_de_mobs.append()#resolver esse append)
+        self.wave_list.append( Wave(time, [lista_de_mobs]) )
+        self.dificuldade += 2
+            
+            
         ##
         
     def action(self):
@@ -52,3 +62,31 @@ class Wave:
     def __init__ (self,monster_interval, monster_list):
         self.monster_interval= monster_interval #intervalo de espera entre criar os monstros, em ciclos
         self.monster_list= monster_list #lista dos TIPOS de monstro a serem gerados
+
+class MonPacket1:
+    cost= 1
+    monster= ["Slime"]
+class MonPacket2:
+    cost= 2
+    monster= ["Slime_nobg"]
+class MonPacket3:
+    cost= 3
+    monster= ["GlassSlime"]
+class MonPacket4:
+    cost= 4
+    monster= ["JohnnyBravoSlime"]
+class MonPacket5:
+    cost= 5
+    monster= ["Slime_MagnataBMP"]
+class MonPacket6:
+    cost= 6
+    monster= ["Slime_Fire"]
+class MonPacket7:
+    cost= 7
+    monster= ["Olho"]
+class MonPacket_Boss1:
+    cost= 10
+    monster= ["Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"]
+class MonPacket_Boss2:
+    cost= 20
+    monster= ["Slime", "Slime", "Slime", "Slime", "GlassSlime", "Slime_Fire", "Slime_Fire", "Slime_Fire", "Olho", "Olho", "Olho"]

@@ -4,9 +4,9 @@ Created on Mon May  2 17:07:18 2016
 
 @author: Alexandre Young
 """
-from actionable import Actionable
 import monster
 import tower
+import particle
 from castle import Castle
 from spawn import Spawn
 
@@ -21,8 +21,7 @@ class GameMap:
     # mas várias instâncias de mesmo tipo coexistem na lista
     #  spawn: instância de Spawn, por enquanto apenas um exist em todo o mapa
     #  castle: instância de castle, apenas um existe
-
-
+    ##
 
     def __init__(self):     
     
@@ -30,8 +29,8 @@ class GameMap:
             [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9],
             [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
             [9,1,1,7,7,7,1,1,1,1,1,1,3,1,1,1,1,1,1,6,6,6,1,1,9],
-            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,6,6,1,1,9],
-            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,6,1,1,9],
+            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,6,6,6,1,1,9],
+            [9,1,1,1,7,1,1,1,1,1,1,1,3,1,1,1,1,1,1,6,6,6,1,1,9],
             [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
             [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
             [9,1,1,1,1,1,1,1,1,1,2,2,0,2,2,1,1,1,1,1,1,1,1,1,9],
@@ -40,12 +39,12 @@ class GameMap:
             [9,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,9],
             [9,1,1,1,1,1,1,1,1,1,2,2,0,2,2,1,1,1,1,1,1,1,1,1,9],
             [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
-            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
-            [9,1,1,1,1,8,1,1,1,1,1,1,3,1,1,1,1,1,1,5,5,1,1,1,9],
-            [9,1,1,1,8,8,1,1,1,1,1,1,3,1,1,1,1,1,5,5,5,5,1,1,9],
-            [9,1,1,8,8,8,1,1,1,1,1,1,3,1,1,1,1,1,1,5,5,1,1,1,9],
-            [9,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
-            [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]]
+            [8,8,8,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,1,8,8,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,5,5,1,1,1,9],
+            [9,1,1,8,8,1,1,1,1,1,1,1,3,1,1,1,1,1,5,5,5,5,1,1,9],
+            [9,1,1,1,8,8,1,1,1,1,1,1,3,1,1,1,1,5,5,5,5,5,5,1,9],
+            [9,1,1,1,1,8,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,9],
+            [9,9,9,9,9,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]]
     
         map_dict = {
              9 : Tile_Highgrass,
@@ -62,9 +61,6 @@ class GameMap:
         for i in range( len(self.tile_grid)):
             for j in range( len(self.tile_grid[i])):
                 self.tile_grid[i][j]= map_dict[self.tile_grid[i][j]]()
-            
-        
-#        print(self.tile_grid)        
         
         castle_home=[]
         for i in range (5):
@@ -73,6 +69,41 @@ class GameMap:
                 
         self.spawn= Spawn(self, self.tile_grid[0][12])
         self.castle= Castle(castle_home)
+        
+        self.particle_list= []
+    #
+    
+    def distance_between(self, tile1, tile2):
+        ##  Overview
+        #  recebe duas tiles e retorna a distância entre elas, em número de tiles
+        # de distância
+        #----------------------------------------------------------------------
+        ##  Parâmetros:
+        #  tile1, tile2: instância arbitrária de tipo Tile
+        #----------------------------------------------------------------------
+        ##  Retorno:
+        #  x: distância horizontal em número de tiles de distância entre tile1
+        # e tile2
+        #  y: distância vertical em número de tiles de distância entre tile1
+        # e tile2
+        ##
+        x1, y1, x2, y2= 0, 0, 0, 0
+        found= 0
+        
+        for i in range(len (self.tile_grid)):
+            for j in range (len (self.tile_grid[i])):
+                if self.tile_grid[i][j] == tile1:
+                    x1, y1= j, i
+                    found+= 1
+                if self.tile_grid[i][j] == tile2:
+                    x2, y2= j, i
+                    found+= 1
+                if found == 2:
+                    break
+        #
+        x, y= (x1 - x2), (y1 - y2)
+        
+        return x, y
     #
     
     def get_adjacent_tile(self, tile, direction):
@@ -90,7 +121,7 @@ class GameMap:
         #  None em caso de falha, se não houver uma tile adjacente na direção
         # dada, por exemplo quando você busca por tile_grid[0][0] com direção
         # "Up"
-        
+        ##
         directiondict={
             "Up": [-1, 0],
             "Right": [0, 1],
@@ -129,18 +160,20 @@ class GameMap:
         #  actionable: pode ser tanto uma chave em String correspondente a
         # um tipo de Monster ou Tower, para a criação de uma nova instância,
         # ou uma instância desses tipos, para mover uma já existente
-        # target_tile: instância de Tile onde criar o actionable
+        #  target_tile: instância de Tile onde criar o actionable
         #----------------------------------------------------------------------
         ## Retorno:
         #  int 1 em caso de sucesso
         #  int -1 em caso de falha
-    
-        
+        ##
         key_dict={
             "Slime": monster.Slime,
             "Slime_nobg": monster.Slime_nobg,
             "GlassSlime": monster.GlassSlime,
             "JohnnyBravoSlime": monster.JohnnyBravoSlime,
+            "Slime_MagnataBMP": monster.Slime_MagnataBMP,
+            "Olho": monster.Olho,
+            "Slime_Fire": monster.Slime_Fire,
 #            "FatSlime": monster.FatSlime,
             "Cannon": tower.Cannon
         }
@@ -154,10 +187,27 @@ class GameMap:
         return -1 #sinal de que não conseguiu criar
     #
         
-#    def 
-    
-         
-    #
+    def create_particle(self, target_particle, start_tile, end_tile):
+        ##  Overview
+        #  cria uma instância tipo Particle para um Tile alvo
+        #----------------------------------------------------------------------
+        ##  Parâmetros:
+        #  particle: uma chave em String correspondente ao tipo de particle a
+        # ser criada
+        #  start_tile: instância de Tile de onde o particle parte
+        #  end_tile: instância de Tile onde o particle termina
+        #----------------------------------------------------------------------
+        ## Retorno:
+        #  int 1 em caso de sucesso
+        #  int -1 em caso de falha
+        ##
+        key_dict={
+            "Cannonball": particle.Cannonball,
+            "Shadow": particle.Shadow
+        }
+        
+        self.particle_list.append(key_dict[target_particle](self, start_tile, end_tile))
+        return 1
          
     def erase(self, target_actionable, target_tile):
         ##  Overview
@@ -172,12 +222,30 @@ class GameMap:
         #  Retorno
         #  int 1 em caso de sucesso
         #  int -1 em caso de falha
-        
+        ##
         if target_tile.actionable == target_actionable:
             target_tile.actionable= None
             return 1
         return -1
-    #
+        
+    def erase_particle(self, target_particle):
+        ##  Overview
+        #  apaga a instância de Particle recebida
+        #----------------------------------------------------------------------
+        ##  Parâmetros
+        #  particle: instância tipo Particle
+        #----------------------------------------------------------------------
+        #  Retorno
+        #  int 1 em caso de sucesso
+        #  int -1 em caso de falha
+        ##
+    
+        for i in range(len(self.particle_list)):
+            if self.particle_list[i] == target_particle:
+                self.particle_list.pop(i)
+                return 1
+        return -1
+        
 #
          
 class Tile():
