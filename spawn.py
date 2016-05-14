@@ -46,9 +46,11 @@ class Spawn:
                 selecionado = random.randint(0,n)
                 lista_de_mobs.append(self.packet_lista[selecionado])
                 soma -= self.packet_list[selecionado]            
-            
+            lista_de_monster = []    
+            for i in range(len(lista_de_mobs)):
+                lista_de_monster.append(lista_de_mobs[i].monster)
             time = int(360 / (self.dificuldade**(1/2)))
-            self.wave_list.append( Wave(time, [lista_de_mobs].monster) )
+            self.wave_list.append( Wave(time, lista_de_monster) )
             self.dificuldade += 2
             
             
@@ -57,13 +59,8 @@ class Spawn:
     def action(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.current_wave == None:
-            if self.dificuldade == 10:
-                self.current_wave = (self.wave_list1[0])#Na fase 10 e na fase 20 serao sempre os mesmos bosses
-            elif self.dificuldade == 20:
-                self.current_wave = (self.wave_list2[0])
-            else:
-                self.current_wave= (self.wave_list[0])
-        self.wave_list.pop(0)
+            self.current_wave= (self.wave_list[0])
+            self.wave_list.pop(0)
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo
@@ -87,28 +84,28 @@ class Wave:
 
 class MonPacket1:
     cost= 1
-    monster= ["Slime"]
+    monster= "Slime"
 class MonPacket2:
     cost= 2
-    monster= ["Slime_nobg"]
+    monster= "Slime_nobg"
 class MonPacket3:
     cost= 3
-    monster= ["GlassSlime"]
+    monster= "GlassSlime"
 class MonPacket4:
     cost= 4
-    monster= ["JohnnyBravoSlime"]
+    monster= "JohnnyBravoSlime"
 class MonPacket5:
     cost= 5
-    monster= ["Slime_MagnataBMP"]
+    monster= "Slime_MagnataBMP"
 class MonPacket6:
     cost= 6
-    monster= ["Slime_Fire"]
+    monster= "Slime_Fire"
 class MonPacket7:
     cost= 7
-    monster= ["Olho"]
+    monster= "Olho"
 class MonPacket_Boss1:
     cost= 10
-    monster= ["Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"]
+    monster= "Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"
 class MonPacket_Boss2:
     cost= 20
-    monster= ["Slime", "Slime", "Slime", "Slime", "GlassSlime", "Slime_Fire", "Slime_Fire", "Slime_Fire", "Olho", "Olho", "Olho"]
+    monster= "Slime", "Slime", "Slime", "Slime", "GlassSlime", "Slime_Fire", "Slime_Fire", "Slime_Fire", "Olho", "Olho", "Olho"
