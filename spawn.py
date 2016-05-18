@@ -20,7 +20,10 @@ class Spawn:
         self.home= home #objeto tipo Tile, onde o Spawn se encontra
         self.difficulty= 2
         self.packet_list= [MonPacket1, MonPacket2, MonPacket3, MonPacket4, MonPacket5, MonPacket6, MonPacket7]
-        self.boss_packet_list= [BossPacket1, BossPacket2]
+        self.boss_wave_list=[
+            Wave(60, BossPacket1.monster),
+            Wave(60, BossPacket2.monster)
+            ]
         
     def make_wave (self):
         
@@ -39,14 +42,14 @@ class Spawn:
                     n = i
                     break
             
-            packet= self.packet_list[random.randint(0,n)]
+            packet= self.packet_list[random.randint(0, n-1)]
             
             for monster in packet.monster:
                 monster_list.append(monster)
                 
             difficulty -= packet.cost         
                 
-            time = int(360 / (self.difficulty**(1/2)))
+            time = int(120 / (self.difficulty**(1/2)))
             
             return Wave(time, monster_list)
         ##
@@ -54,7 +57,10 @@ class Spawn:
     def action(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.wave == None:
-            self.wave= self.make_wave()
+            if self.difficulty % 10 != 0:
+                self.wave= self.make_wave()
+            else:
+                self.wave=self.boss_wave_list[self.difficulty//10] 
             self.difficulty+= 2
         ##
             
@@ -99,7 +105,6 @@ class MonPacket7:
     cost= 7
     monster= ["Olho"]
 class BossPacket1:
-    cost= 10
     monster= ["Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"]
 class BossPacket2:
     cost= 20
