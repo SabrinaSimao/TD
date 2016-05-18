@@ -17,10 +17,17 @@ x menu comporta 7 tiles
 y menu comporta 19 tiles
 '''
 
-def draw_menu():
-    for i in range(6):
+def draw_menu(Surface,image):
+    x = 768    
+    
+    for i in range(7):
+        y = 0
+        x += 32
+        
         for j in range(19):
-            pass
+            print(y)
+            pygame.Surface.blit(Surface,image,(x + 224,y))
+            y += 32
 
 def cannon_button (screen):
     #Coloração do botão
