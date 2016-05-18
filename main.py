@@ -79,7 +79,7 @@ class DrawHandler:
         self.display= display
         
         self.display.init()
-        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
+        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 224, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
 #        menu.cannon_button ( self.canvas, 900, 100, 32, 32, (255, 0, 0),)
         pygame.draw.rect (self.canvas, (255, 0, 0), (900, 100, 32, 32,))

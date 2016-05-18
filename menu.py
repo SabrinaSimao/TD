@@ -9,6 +9,19 @@ import pygame
 
 #mouse_position = pygame.mouse.get_pos ()
 
+'''
+x menu = 224
+y menu = 608
+
+x menu comporta 7 tiles
+y menu comporta 19 tiles
+'''
+
+def draw_menu():
+    for i in range(6):
+        for j in range(19):
+            pass
+
 def cannon_button (screen):
     #Coloração do botão
 
