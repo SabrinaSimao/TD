@@ -79,13 +79,20 @@ class DrawHandler:
         self.display= display
         
         self.display.init()
-        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 200, self.sprite_size*len(self.tile_grid)])
+        self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 224, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([0, 0, 0])
-        menu.cannon_button ( self.canvas, 900, 100, 32, 32, (255, 0, 0),)
-    #
-    def desenhar_botão(self):
         
-        menu.cannon_button (self.canvas, 900, 100, 32, 32, (0, 255, 0))
+#        ----MENU-----
+        menu.draw_menu(self.canvas,self.image_bank['Tile_Wall'])
+#       
+        
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 100, 32, 32,))
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 200, 32, 32,))
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32,))
+    #
+#    def desenhar_botão(self):
+        
+#        menu.cannon_button (self.canvas, 900, 100, 32, 32, (0, 255, 0))
         
     def update(self):
         ## Overview: desenha os sprites no mapa
@@ -112,19 +119,15 @@ class DrawHandler:
             if particle.icon != None:
                 self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
             particle.update()
-        
-            #print (particle.read_position())
-            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
-            particle.update() 
 
-        #Parte dos botões
-        mouse_position = pygame.mouse.get_pos ()
-        click = pygame.mouse.get_pressed ()
-        
-        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
-            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
-        else:
-            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+        #Parte dos botões inutil agora,eu acho
+#        mouse_position = pygame.mouse.get_pos ()
+#        click = pygame.mouse.get_pressed ()
+#        
+#        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
+#            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
+#        else:
+#            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
             
         
         self.display.flip()
@@ -194,10 +197,14 @@ class EventHandler:
         click = pygame.mouse.get_pressed ()
         
         if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100 and click[0] == True:
-            print('ola')
-            self.draw.desenhar_botão()
+
+#            self.draw.desenhar_botão()
             
-            self.selected_tower = 'Cannon'
+            self.selected_tower = menu.cannon_button (draw.canvas)
+            
+        if 900 + 32 > mouse_position [0] > 900 and 200 + 32 > mouse_position [1] > 200 and click[0] == True:
+            
+            self.selected_tower = menu.ballista_button (draw.canvas)
             
         
         #clique nos tiles
