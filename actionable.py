@@ -47,7 +47,7 @@ class Monster( Actionable):
         direction_list= ["Up", "Right", "Down", "Left"]
         for direction in direction_list:
             target_tile= self.game_map.get_adjacent_tile(self.home, direction)
-            if target_tile.move_value == self.home.move_value-1:
+            if target_tile!= None and target_tile.move_value == self.home.move_value-1:
                 found= True
                 break
             

@@ -6,6 +6,7 @@ Created on Mon May  2 17:07:18 2016
 """
 import monster
 import tower
+from actionable import Tower
 import particle
 from castle import Castle
 from spawn import Spawn
@@ -91,16 +92,16 @@ class GameMap:
                 for j in range(len(grid[i])):
                     if grid[i][j].move_value == level and i != 0 and i != len(grid)-1 and j!= 0 and j != len(grid[i])-1:
                         if grid[i][j+1].move_value == -1:
-                            grid[i][j+1]= level+1
+                            grid[i][j+1].move_value= level+1
                             keep_on= True
                         if grid[i][j-1].move_value == -1:
-                            grid[i][j-1]= level+1
+                            grid[i][j-1].move_value= level+1
                             keep_on= True
                         if grid[i+1][j].move_value == -1:
-                            grid[i+1][j]= level+1
+                            grid[i+1][j].move_value= level+1
                             keep_on= True
                         if grid[i-1][j].move_value == -1:
-                            grid[i-1][j]= level+1
+                            grid[i-1][j].move_value= level+1
                             keep_on= True
             level+=1
         #
