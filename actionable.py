@@ -33,8 +33,8 @@ class Monster( Actionable):
     def action( self):
         #função que executa o monstro, chamada por CycleManager
         self.move()
-            
-    def move( self):
+       
+    def move (self):
         #tenta se mover para a tile abaixo
         #em sucesso:
         #retirar sua instância da tile anterior
@@ -43,13 +43,23 @@ class Monster( Actionable):
         #em falha:
         #nada
     
-        target_tile= self.game_map.get_adjacent_tile(self.home, "Down")
-        if target_tile!= None:
+        found= False
+        direction_list= ["Up", "Right", "Down", "Left"]
+        for direction in direction_list:
+            target_tile= self.game_map.get_adjacent_tile(self.home, direction)
+            if target_tile.move_value == self.home.move_value-1:
+                found= True
+                break
+            
+        if found:
             if self.game_map.create(self, target_tile) == 1:
                 self.game_map.erase(self, self.home)
                 self.home= target_tile
                 if self.game_map.castle.tile_is_castle(self.home):
                     self.invade()
+                return 1
+        print("Monstro não achou tile para andar")
+        return -1        
     
     def take_damage( self, damage):
         self.hp_current -= damage

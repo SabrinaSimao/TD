@@ -71,7 +71,40 @@ class GameMap:
         self.castle= Castle(castle_home)
         
         self.particle_list= []
+        
+        self.set_move_values()
     #
+    
+    def set_move_values(self):
+        grid= self.tile_grid
+        
+        for column in grid:
+            for tile in column:
+                if tile.move_value > 0:
+                    tile.setDefaultValue()
+                
+        level= 0
+        keep_on= True
+        while keep_on:
+            keep_on= False
+            for i in range(len(grid)):
+                for j in range(len(grid[i])):
+                    if grid[i][j].move_value == level and i != 0 and i != len(grid)-1 and j!= 0 and j != len(grid[i])-1:
+                        if grid[i][j+1].move_value == -1:
+                            grid[i][j+1]= level+1
+                            keep_on= True
+                        if grid[i][j-1].move_value == -1:
+                            grid[i][j-1]= level+1
+                            keep_on= True
+                        if grid[i+1][j].move_value == -1:
+                            grid[i+1][j]= level+1
+                            keep_on= True
+                        if grid[i-1][j].move_value == -1:
+                            grid[i-1][j]= level+1
+                            keep_on= True
+            level+=1
+        #
+        #precisa checar se eu não tou fechando completamente caminhos
     
     def distance_between(self, tile1, tile2):
         ##  Overview
@@ -183,6 +216,10 @@ class GameMap:
             if isinstance(actionable, str):
                 actionable= key_dict[actionable](self, target_tile)
             target_tile.actionable= actionable
+            
+            if isinstance(actionable, Tower):
+                target_tile.move_value= -100
+                self.set_move_values()
             return 1 #sinal de que criou com sucesso
         return -1 #sinal de que não conseguiu criar
     #
@@ -249,12 +286,19 @@ class GameMap:
 #
          
 class Tile():
+    #move value de zero são os pontos de entrada
+    #move value de -1 são tiles movíveis normais, mas sem o valor inicializado
+    #moves de -10 pra baixo são tiles que não podemos mover para
+
     pixel = 32
     icon= "Default"
     
     def __init__ (self):
         self.actionable = None
-        self.value= 0
+        self.setDefaultValue()
+        
+    def setDefaultValue(self):
+        self.move_value= -1
     
 class Tile_Grass(Tile):
     icon= "Tile_Grass"
@@ -262,8 +306,14 @@ class Tile_Grass(Tile):
 class Tile_Wall(Tile):
     icon= "Tile_Wall"
     
+    def setDefaultValue(self):
+        self.move_value= -10
+    
 class Tile_Door(Tile):
     icon= "Tile_Door"
+    
+    def setDefaultValue(self):
+        self.move_value= 0
     
 class Tile_Dirt(Tile):
     icon= "Tile_Dirt"
@@ -271,14 +321,27 @@ class Tile_Dirt(Tile):
 class Tile_Mountain(Tile):
     icon= "Tile_Mountain"
     
+    def setDefaultValue(self):
+        self.move_value= -10
+    
 class Tile_Farm(Tile):
     icon= "Tile_Farm"
+    
+    def setDefaultValue(self):
+        self.move_value= -10
+        
 
 class Tile_Tree(Tile):
     icon= "Tile_Tree"
     
+    def setDefaultValue(self):
+        self.move_value= -10
+    
 class Tile_Water(Tile):
     icon= "Tile_Water"
+    
+    def setDefaultValue(self):
+        self.move_value= -10
     
 class Tile_Highgrass(Tile):
     icon= "Tile_Highgrass"
