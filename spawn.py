@@ -49,9 +49,9 @@ class Spawn:
                 
             difficulty -= packet.cost         
                 
-            time = int(120 / (self.difficulty**(1/2)))
-            
-            return Wave(time, monster_list)
+        time = int(120 / (self.difficulty**(1/2)))
+        print(monster_list)
+        return Wave(time, monster_list)
         ##
         
     def action(self):
@@ -60,7 +60,7 @@ class Spawn:
             if self.difficulty % 10 != 0:
                 self.wave= self.make_wave()
             else:
-                self.wave=self.boss_wave_list[self.difficulty//10] 
+                self.wave=self.boss_wave_list[(self.difficulty//10)-1] 
             self.difficulty+= 2
         ##
             
@@ -105,6 +105,7 @@ class MonPacket7:
     cost= 7
     monster= ["Olho"]
 class BossPacket1:
+    cost= 10
     monster= ["Slime","Slime","Slime", "Slime", "GlassSlime", "GlassSlime", "Olho"]
 class BossPacket2:
     cost= 20
