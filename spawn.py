@@ -17,7 +17,6 @@ class Spawn:
         self.cycle= self.wave_wait
         self.wave= None
         self.game_map= game_map
-        self.home= home #objeto tipo Tile, onde o Spawn se encontra
         self.difficulty= 2
         self.packet_list= [MonPacket1, MonPacket2, MonPacket3, MonPacket4, MonPacket5, MonPacket6, MonPacket7]
         self.boss_wave_list=[
@@ -65,14 +64,11 @@ class Spawn:
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo
-        if self.game_map.create(self.wave.monster_list[0], self.home) != -1:
-            
+        spawn_tile= self.game_map.border_tile[random.randint(0, len(self.game_map.border_tile)-1)]
+        self.cycle= 1
+        if self.game_map.create(self.wave.monster_list[0], spawn_tile) != -1:
             self.wave.monster_list.pop(0)
             self.cycle= self.wave.monster_interval
-        else:
-            
-            self.cycle= 1
-        ##
             
         if len( self.wave.monster_list ) == 0:
             self.wave= None

@@ -58,10 +58,14 @@ class GameMap:
              1 : Tile_Grass,
              0 : Tile_Door
         }
+        
+        self.border_tile=[]
                 
         for i in range( len(self.tile_grid)):
             for j in range( len(self.tile_grid[i])):
                 self.tile_grid[i][j]= map_dict[self.tile_grid[i][j]]()
+                if isinstance(self.tile_grid[i][j], Tile_Highgrass):
+                    self.border_tile.append(self.tile_grid[i][j])
         
         castle_home=[]
         for i in range (5):
