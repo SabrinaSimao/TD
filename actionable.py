@@ -5,6 +5,8 @@ Created on Fri May  6 17:38:56 2016
 @author: Alexandre Young
 """
 
+import random
+
 class Actionable:
 
     wait= 60
@@ -45,6 +47,7 @@ class Monster( Actionable):
     
         found= False
         direction_list= ["Up", "Right", "Down", "Left"]
+        random.shuffle(direction_list)
         for direction in direction_list:
             target_tile= self.game_map.get_adjacent_tile(self.home, direction)
             if target_tile!= None and target_tile.move_value == self.home.move_value-1:
@@ -58,7 +61,7 @@ class Monster( Actionable):
                 if self.game_map.castle.tile_is_castle(self.home):
                     self.invade()
                 return 1
-        print("Monstro não achou tile para andar")
+        #print("Monstro não achou tile para andar")
         return -1        
     
     def take_damage( self, damage):
