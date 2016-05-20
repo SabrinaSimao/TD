@@ -70,7 +70,7 @@ class DrawHandler:
         'Cannon': pygame.image.load('pictures\cannon.png'),
         'Shadow': pygame.image.load('pictures\particles\shadow.png'),
         'Cannonball': pygame.image.load('pictures\particles\cannonball.png'),
-        'archer_tower': pygame.image.load('pictures\\archer_tower.png')}
+        'Archer_tower': pygame.image.load('pictures\\archer_tower.png')}
 
     def __init__(self, game_map, display):
         
