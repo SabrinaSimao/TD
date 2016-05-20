@@ -138,4 +138,9 @@ class Cannonball(Bullet):
     icon= "Cannonball"
     damage= 10
     duration= 40
+    
+class Arrow(Bullet):
+    icon= "Arrow"
+    damage= 10
+    duration= 20
 #
