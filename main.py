@@ -87,7 +87,7 @@ class DrawHandler:
         
 #        ---menu inicial do jogo---
         
-#        menu.start(self.canvas)
+      #  menu.start(self.canvas)
         
         
         
