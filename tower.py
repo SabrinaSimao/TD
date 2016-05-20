@@ -7,15 +7,9 @@ class Cannon(Tower):
     reload_time= 120
     cost = 10
     
-class archer_tower(Tower):
+class ArcherTower(Tower):
     attack_range= 3
     bullet= "Cannonball"
     icon= "archer_tower"
     reload_time= 50
     cost = 5
-    
-def tower_cost(selected_tower):
-    if selected_tower == "Cannon":
-        return 10
-    if selected_tower == "archer":
-        return 5

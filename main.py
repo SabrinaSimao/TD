@@ -7,12 +7,12 @@ Created on Wed May  4 13:04:42 2016
 
 import pygame
 from gamemap import GameMap
-import menu
+from menu import Menu
 import titulos
+import tower
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
-import tower
 
 class CycleHandler:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
@@ -84,20 +84,6 @@ class DrawHandler:
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 224, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([255, 255, 255])
-        
-#        ---menu inicial do jogo---
-        
-#        menu.start(self.canvas)
-        
-        
-        
-#        ----MENU_lateral-----
-        menu.draw_menu(self.canvas,self.image_bank['Tile_Wall'])
-#       
-        
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 100, 32, 32,))
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32,))
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 500, 32, 32,))
     #
 
 
@@ -107,6 +93,30 @@ class DrawHandler:
         ## Overview: desenha os sprites no mapa
         # primeiro desenha as tiles sequencialmente
         # depois desenha as criaturas contidas em cada tile
+    
+    #        ----MENU_lateral-----                
+        x = 800 
+    
+        for i in range(7):
+            y = 0
+    
+            for j in range(19):
+                self.canvas.blit(self.image_bank['Tile_Wall'], (x ,y))
+                y += 32
+            x+=32
+        #botoes
+        
+        
+        pygame.draw.rect (self.canvas, (255 , 0 ,0), (900, 100, 32, 32)) # cannon_button
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32)) # archer_button
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 500, 32, 32)) # balista_button
+        
+        selected={
+            "Cannon": 100,
+            "Archer_Tower": 300
+        }
+        if Menu.button_selected != None:
+            pygame.draw.rect (self.canvas, (0, 255, 0), (900, selected[Menu.button_selected], 32, 32)) # balista_button
     
         #deseha tiles:
         for height in range(len(self.tile_grid)):
@@ -158,6 +168,8 @@ class EventHandler:
         self.quit= False
         self.draw= draw
         self.selected_tower = None
+        
+        self.Green = 0,255,0
     
     def update(self):
         self.window_event()
@@ -191,12 +203,7 @@ class EventHandler:
             self.quit= True
 
     
-    def mouse_event(self):
-        
-
-
-        
-        
+    def mouse_event(self): 
         #Atualiza tile que o mouse está em cima
         x, y= self.mouse.get_pos()[0]//self.game_map.tile_grid[0][0].pixel, self.mouse.get_pos()[1]//self.game_map.tile_grid[0][0].pixel
         if x <= 24:
@@ -214,21 +221,26 @@ class EventHandler:
 
 #            self.draw.desenhar_botão()
             
-            self.selected_tower = menu.cannon_button (draw.canvas)
+            self.selected_tower = Menu.button_selected= "Cannon"
             
         if 900 + 32 > mouse_position [0] > 900 and 300 + 32 > mouse_position [1] > 200 and click[0] == True:
             
-            self.selected_tower = menu.archer_button (draw.canvas)
+            self.selected_tower = Menu.button_selected= "Archer_Tower"
             
             
         
         #clique nos tiles
-        if self.selected_tower != None: #é inutil clicar nos tiles se  não tiver torre selecionada,tambem quebra o jogo
+        if Menu.button_selected != None: #é inutil clicar nos tiles se  não tiver torre selecionada,tambem quebra o jogo
         
         
             if self.mouse.get_pressed()[0] != self.mouse_state:
                 
-                cost = tower.tower_cost(self.selected_tower)              
+                selected_tower={
+                    "Cannon": tower.Cannon,
+                    "Archer_Tower": tower.ArcherTower
+                }
+                
+                cost = selected_tower[Menu.button_selected].cost      
                 
                 if self.mouse.get_pressed()[0] == False:
                     self.mouse_state= False
@@ -236,7 +248,7 @@ class EventHandler:
                     
                 elif game_map.castle.gold >= cost and self.mouse_tile not in game_map.castle.home and self.mouse.get_pos()[0] < 800:
                     
-                    create_successful = self.game_map.create(self.selected_tower, self.mouse_tile)
+                    create_successful = self.game_map.create(Menu.button_selected, self.mouse_tile)
                     if create_successful == 1:
                         game_map.castle.gold -=  cost
                     
