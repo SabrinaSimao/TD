@@ -19,7 +19,6 @@ class Particle:
         self.game_map=game_map
         self.trajectory= Trajectory(self)
         self.step= 0
-    #
         
     def read_position(self):
         return int(self.trajectory.x_current), int(self.trajectory.y_current)
@@ -34,7 +33,7 @@ class Particle:
     #
             
     def erase(self):
-        self.game_map.erase_particle(self)
+        self.game_map.particle_holder.erase(self)
     
 #
     
@@ -51,7 +50,7 @@ class BouncingDoppleganger(Particle):
         self.trajectory= Trajectory(self)
         self.arch= Arch(self)
         
-        game_map.create_particle("Shadow", (game_map, origin_tile, target_tile, "Big", duration))
+        game_map.particle_holder.create("Shadow", (game_map, origin_tile, target_tile, "Big", duration))
         
         self.step= 0
         
@@ -69,7 +68,7 @@ class BouncingDoppleganger(Particle):
         return int(self.trajectory.x_current), int(self.trajectory.y_current)-self.arch.y_current
             
     def erase(self):
-        self.game_map.erase_particle(self)
+        self.game_map.particle_holder.erase(self)
         
         
         
@@ -111,7 +110,7 @@ class Bullet(Particle):
         self.game_map=game_map
         self.trajectory= Trajectory(self)
         self.arch= Arch(self)
-        game_map.create_particle("Shadow", (game_map, origin_tile, target_tile, "Small", self.duration) )
+        game_map.particle_holder.create("Shadow", (game_map, origin_tile, target_tile, "Small", self.duration) )
         
         self.step= 0
     #
@@ -133,7 +132,7 @@ class Bullet(Particle):
         if self.target_tile.actionable != None:
             self.target_tile.actionable.take_damage(self.damage)
             
-        self.game_map.erase_particle(self)
+        self.game_map.particle_holder.erase(self)
 #
         
 class Arch:

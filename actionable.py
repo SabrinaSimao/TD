@@ -55,17 +55,29 @@ class Monster( Actionable):
         found= False
         direction_list= ["Up", "Right", "Down", "Left"]
         random.shuffle(direction_list)
+        value= 9999
+        target_tile= None
+        
         for direction in direction_list:
-            target_tile= self.game_map.get_adjacent_tile(self.home[0], direction)
-            if target_tile!= None and target_tile.move_value == self.home[0].move_value-1:
+            target_tile=self.game_map.get_adjacent_tile(self.home[0], direction)
+            if target_tile != None and target_tile.move_value >= 0 and target_tile.move_value < value:
+                value= target_tile.move_value
+            if value != 9999:
                 found= True
-                break
-            
+        target_tile= None
+        
         if found:
+            found= False
+            for direction in direction_list:
+                target_tile=self.game_map.get_adjacent_tile(self.home[0], direction)
+                if target_tile != None and target_tile.move_value == value:
+                    break
+            
+        if target_tile != None:
             if self.game_map.create(self, target_tile) == 1:
                 self.game_map.erase(self, self.home[0])
                 self.home.append( target_tile)
-                self.game_map.create_particle("BouncingDoppleganger", (self.game_map, self.icon, self.home[0], self.home[1], self.jump))
+                self.game_map.particle_holder.create("BouncingDoppleganger", (self.game_map, self.icon, self.home[0], self.home[1], self.jump))
                 self.icon="Default"
                 self.cycle= 20
                 return 1
@@ -135,7 +147,7 @@ class Tower( Actionable):
         
         target= self.seek_target()
         if target != None:
-            self.game_map.create_particle("Cannonball", (self.game_map, self.home, target))
+            self.game_map.particle_holder.create("Cannonball", (self.game_map, self.home, target))
             self.cycle= self.reload_time
     #
 #

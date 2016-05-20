@@ -8,6 +8,7 @@ Created on Wed May  4 13:04:42 2016
 import pygame
 from gamemap import GameMap
 from menu import Menu
+from particle import Shadow
 import titulos
 import tower
 
@@ -20,6 +21,7 @@ class CycleHandler:
     def __init__(self, game_map):
             
         self.tile_grid= game_map.tile_grid
+        self.game_map= game_map
         self.spawn= game_map.spawn
         self.castle= game_map.castle
         self.cyclecounter= 0 # conta qual ciclo estamos
@@ -30,17 +32,28 @@ class CycleHandler:
     def update(self):
         
         routine_buffer=[]
+        
         for tile_column in self.tile_grid:
             for tile in tile_column:
                 if tile.actionable != None:
                     if tile.actionable.cycle != 0 and self.cyclecounter % tile.actionable.cycle == 0:
                         routine_buffer.append( tile.actionable.update)
+                        
+        for shadow in game_map.particle_holder.shadow:
+            routine_buffer.append( shadow.update)
+            
+        for particle in game_map.particle_holder.particle:
+            routine_buffer.append( particle.update)
         
         for routine in routine_buffer:
             routine()
         
         if self.cyclecounter % self.spawn.cycle == 0:
             self.spawn.update()
+            
+        if self.cyclecounter % 20 == 0:
+            self.game_map.set_move_values()
+        #Vale a pena ver que outros valores são mais apropriados
                     
         self.cyclecounter+= 1
         self.cyclecounter%= self.cyclelimit
@@ -77,10 +90,8 @@ class DrawHandler:
     def __init__(self, game_map, display):
         
         self.tile_grid= game_map.tile_grid
-        self.particle_list= game_map.particle_list
+        self.game_map= game_map
         self.sprite_size= self.tile_grid[0][0].pixel
-        self.particle_size= 16 #depois fazer isto em relação ao tamanho marcado na classe
-        
         self.display= display
         
         self.display.init()
@@ -119,27 +130,29 @@ class DrawHandler:
         }
         if Menu.button_selected != None:
             pygame.draw.rect (self.canvas, (0, 255, 0), (900, selected[Menu.button_selected], 32, 32)) # balista_button
-    
+        
+        
+        
         #deseha tiles:
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
                 self.canvas.blit(self.image_bank[self.tile_grid[height][width].icon], [width*self.sprite_size, height*self.sprite_size])
             #
-        #
-            
+        #desenha sombras
+        for shadow in self.game_map.particle_holder.shadow:
+            self.canvas.blit(self.image_bank[shadow.icon], shadow.read_position())
         #desenha criaturas:
+            
         for height in range(len(self.tile_grid)):
             for width in range(len(self.tile_grid[height])):
-                if self.tile_grid[height][width].actionable != None:
+                if self.tile_grid[height][width].actionable != None and self.tile_grid[height][width].actionable.icon != "Default":
                     self.canvas.blit(self.image_bank[self.tile_grid[height][width].actionable.icon], [width*self.sprite_size, height*self.sprite_size])
 
         #
                     
         #desenha partículas:
-        for particle in self.particle_list:
-            if particle.icon != None:
-                self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
-            particle.update()
+        for particle in self.game_map.particle_holder.particle:
+            self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
 
         #Parte dos botões inutil agora,eu acho
 #        mouse_position = pygame.mouse.get_pos ()
@@ -268,7 +281,7 @@ game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
 cycle= CycleHandler(game_map)
 event= EventHandler(game_map, pygame.event, pygame.mouse, pygame.key, draw)
-gamespeed= 17 #em milissegundos de duração de cada ciclo
+gamespeed= 16 #em milissegundos de duração de cada ciclo
 
 current_time= pygame.time.get_ticks
 sleep= pygame.time.wait

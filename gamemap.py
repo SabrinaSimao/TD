@@ -11,6 +11,7 @@ from actionable import Monster
 import particle
 from castle import Castle
 from spawn import Spawn
+from particleholder import ParticleHolder
 
 class GameMap:
     ##  Overview
@@ -76,7 +77,7 @@ class GameMap:
         self.spawn= Spawn(self, self.tile_grid[0][12])
         self.castle= Castle(castle_home)
         
-        self.particle_list= []
+        self.particle_holder= ParticleHolder()
         
         self.set_move_values()
     #
@@ -96,16 +97,16 @@ class GameMap:
             for i in range(len(grid)):
                 for j in range(len(grid[i])):
                     if grid[i][j].move_value == level:
-                        if j != len(grid[i])-1 and grid[i][j+1].move_value == -1:
+                        if j != len(grid[i])-1 and grid[i][j+1].move_value == -1 and not isinstance(grid[i][j].actionable, Monster):
                             grid[i][j+1].move_value= level+1
                             keep_on= True
-                        if j!= 0 and grid[i][j-1].move_value == -1:
+                        if j!= 0 and grid[i][j-1].move_value == -1 and not isinstance(grid[i][j].actionable, Monster):
                             grid[i][j-1].move_value= level+1
                             keep_on= True
-                        if i != len(grid)-1 and grid[i+1][j].move_value == -1:
+                        if i != len(grid)-1 and grid[i+1][j].move_value == -1 and not isinstance(grid[i][j].actionable, Monster):
                             grid[i+1][j].move_value= level+1
                             keep_on= True
-                        if i != 0 and grid[i-1][j].move_value == -1:
+                        if i != 0 and grid[i-1][j].move_value == -1 and not isinstance(grid[i][j].actionable, Monster):
                             grid[i-1][j].move_value= level+1
                             keep_on= True
             level+=1
@@ -224,7 +225,6 @@ class GameMap:
         if isinstance(actionable, Tower) and isinstance(target_tile, Tile_Grass) and target_tile.actionable == None:
             #falta checar se eu estou interrompendo um caminho permanentemente
             target_tile.move_value= -100
-            self.set_move_values()
             target_tile.actionable= actionable
             return 1
         elif isinstance(actionable, Monster) and target_tile.actionable == None:
@@ -232,29 +232,6 @@ class GameMap:
             return 1
         return -1
     #
-        
-    def create_particle(self, target_particle, parameters):
-        ##  Overview
-        #  cria uma instância tipo Particle para um Tile alvo
-        #----------------------------------------------------------------------
-        ##  Parâmetros:
-        #  target_particle: uma chave em String correspondente ao tipo de particle a
-        # ser criada
-        #  parameters: tuple representado os parâmetros de criação de
-        # target_particle
-        #----------------------------------------------------------------------
-        ## Retorno:
-        #  int 1 em caso de sucesso
-        #  int -1 em caso de falha
-        ##
-        key_dict={
-            "Cannonball": particle.Cannonball,
-            "Shadow": particle.Shadow,
-            "BouncingDoppleganger": particle.BouncingDoppleganger
-        }
-        
-        self.particle_list.append(key_dict[target_particle](*parameters))
-        return 1
          
     def erase(self, target_actionable, target_tile):
         ##  Overview
@@ -273,24 +250,6 @@ class GameMap:
         if target_tile.actionable == target_actionable:
             target_tile.actionable= None
             return 1
-        return -1
-        
-    def erase_particle(self, target_particle):
-        ##  Overview
-        #  apaga a instância de Particle recebida
-        #----------------------------------------------------------------------
-        ##  Parâmetros
-        #  particle: instância tipo Particle
-        #----------------------------------------------------------------------
-        #  Retorno
-        #  int 1 em caso de sucesso
-        #  int -1 em caso de falha
-        ##
-    
-        for i in range(len(self.particle_list)):
-            if self.particle_list[i] == target_particle:
-                self.particle_list.pop(i)
-                return 1
         return -1
         
 #
