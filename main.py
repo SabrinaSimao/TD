@@ -8,6 +8,7 @@ Created on Wed May  4 13:04:42 2016
 import pygame
 from gamemap import GameMap
 import menu
+import titulos
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
@@ -100,6 +101,8 @@ class DrawHandler:
     #
 
 
+
+
     def update(self):
         ## Overview: desenha os sprites no mapa
         # primeiro desenha as tiles sequencialmente
@@ -134,8 +137,11 @@ class DrawHandler:
 #            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
 #        else:
 #            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
-            
         
+        # Money no menu lateral
+        
+        titulos.money_text_title ('Money: ', game_map.castle.gold, (0, 0, 0), self.canvas)
+
         self.display.flip()
     #
 #
