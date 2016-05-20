@@ -7,6 +7,7 @@ Created on Mon May  2 17:07:18 2016
 import monster
 import tower
 from actionable import Tower
+from actionable import Monster
 import particle
 from castle import Castle
 from spawn import Spawn
@@ -216,17 +217,19 @@ class GameMap:
             "Cannon": tower.Cannon
         }
         
-        if target_tile.actionable == None:
-            #checagem de se actionable é uma chave ou objeto
-            if isinstance(actionable, str):
+        if isinstance(actionable, str):
                 actionable= key_dict[actionable](self, target_tile)
+        
+        if isinstance(actionable, Tower) and target_tile.move_value > 0 and not target_tile in self.border_tile and target_tile.actionable == None:
+            #falta checar se eu estou interrompendo um caminho permanentemente
+            target_tile.move_value= -100
+            self.set_move_values()
             target_tile.actionable= actionable
-            
-            if isinstance(actionable, Tower):
-                target_tile.move_value= -100
-                self.set_move_values()
-            return 1 #sinal de que criou com sucesso
-        return -1 #sinal de que não conseguiu criar
+            return 1
+        elif isinstance(actionable, Monster) and target_tile.actionable == None:
+            target_tile.actionable= actionable
+            return 1
+        return -1
     #
         
     def create_particle(self, target_particle, start_tile, end_tile):
@@ -350,3 +353,4 @@ class Tile_Water(Tile):
     
 class Tile_Highgrass(Tile):
     icon= "Tile_Highgrass"
+    
