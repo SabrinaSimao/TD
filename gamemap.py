@@ -220,7 +220,7 @@ class GameMap:
         if isinstance(actionable, str):
                 actionable= key_dict[actionable](self, target_tile)
         
-        if isinstance(actionable, Tower) and target_tile.move_value > 0 and not target_tile in self.border_tile and target_tile.actionable == None:
+        if isinstance(actionable, Tower) and isinstance(target_tile, Tile_Grass) and target_tile.actionable == None:
             #falta checar se eu estou interrompendo um caminho permanentemente
             target_tile.move_value= -100
             self.set_move_values()

@@ -177,6 +177,7 @@ class EventHandler:
         
         if self.event.peek(pygame.QUIT):
             self.quit= True
+        self.event.clear()
         
                 
     def keyboard_event(self):

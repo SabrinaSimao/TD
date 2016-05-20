@@ -49,7 +49,6 @@ class Spawn:
             difficulty -= packet.cost         
                 
         time = int(120 / (self.difficulty**(1/2)))
-        print(monster_list)
         return Wave(time, monster_list)
         ##
         
@@ -60,7 +59,7 @@ class Spawn:
                 self.wave= self.make_wave()
             else:
                 self.wave=self.boss_wave_list[(self.difficulty//10)-1] 
-            self.difficulty+= 2
+            self.difficulty+= 2 + self.difficulty//20
         ##
             
         ## Pedir pro mapa criar o monstro, se não conseguir criar (retorno -1)  tentar denovo próximo ciclo
