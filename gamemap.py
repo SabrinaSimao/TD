@@ -215,7 +215,7 @@ class GameMap:
             "Slime_Fire": monster.Slime_Fire,
 #            "FatSlime": monster.FatSlime,
             "Cannon": tower.Cannon,
-            'archer': tower.archer_tower
+            'Archer_Tower': tower.ArcherTower
         }
         
         if isinstance(actionable, str):

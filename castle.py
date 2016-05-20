@@ -18,8 +18,8 @@ class Castle:
         if self.hp_current <= 0:
             return -1
             
-    def gain_gold(self,treasure):
-        self.gold += treasure
+    def gain_gold(self, gold):
+        self.gold += gold
             
     def tile_is_castle(self, tile):
         ##  Overview

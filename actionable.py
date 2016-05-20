@@ -27,6 +27,7 @@ class Actionable:
 class Monster( Actionable):
     hp_max= 10
     damage= 1
+    gold= 5
     jump= 20
     backup= "Default"
     
@@ -82,7 +83,7 @@ class Monster( Actionable):
     def take_damage( self, damage):
         self.hp_current -= damage
         if self.hp_current <= 0:
-            self.game_map.castle.gain_gold(5)#mudar o 5 por uma variavel para cadas monstro, 5 = quantidade de gold a ser ganha
+            self.game_map.castle.gain_gold(self.gold)
             self.game_map.erase(self, self.home[0])
             if len(self.home) == 2:
                 self.game_map.erase(self, self.home[1])
