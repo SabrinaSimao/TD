@@ -68,9 +68,11 @@ class DrawHandler:
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png'),
         'Shadow': pygame.image.load('pictures\particles\shadow.png'),
-        'Cannonball': pygame.image.load('pictures\particles\cannonball.png')}
+        'Cannonball': pygame.image.load('pictures\particles\cannonball.png'),
+        'archer_tower': pygame.image.load('pictures\\archer_tower.png')}
 
     def __init__(self, game_map, display):
+        
         self.tile_grid= game_map.tile_grid
         self.particle_list= game_map.particle_list
         self.sprite_size= self.tile_grid[0][0].pixel
@@ -80,9 +82,15 @@ class DrawHandler:
         
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 224, self.sprite_size*len(self.tile_grid)])
-        self.canvas.fill([0, 0, 0])
+        self.canvas.fill([255, 255, 255])
         
-#        ----MENU-----
+#        ---menu inicial do jogo---
+        
+#        menu.start(self.canvas)
+        
+        
+        
+#        ----MENU_lateral-----
         menu.draw_menu(self.canvas,self.image_bank['Tile_Wall'])
 #       
         
@@ -90,10 +98,8 @@ class DrawHandler:
         pygame.draw.rect (self.canvas, (255, 0, 0), (900, 200, 32, 32,))
         pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32,))
     #
-#    def desenhar_botão(self):
-        
-#        menu.cannon_button (self.canvas, 900, 100, 32, 32, (0, 255, 0))
-        
+
+
     def update(self):
         ## Overview: desenha os sprites no mapa
         # primeiro desenha as tiles sequencialmente
@@ -176,6 +182,7 @@ class EventHandler:
     def keyboard_event(self):
         if self.keys.get_pressed()[pygame.K_ESCAPE]:
             self.quit= True
+
     
     def mouse_event(self):
         
@@ -204,24 +211,35 @@ class EventHandler:
             
         if 900 + 32 > mouse_position [0] > 900 and 200 + 32 > mouse_position [1] > 200 and click[0] == True:
             
-            self.selected_tower = menu.ballista_button (draw.canvas)
+            self.selected_tower = menu.archer_button (draw.canvas)
+            
             
         
         #clique nos tiles
         if self.selected_tower != None: #é inutil clicar nos tiles se  não tiver torre selecionada,tambem quebra o jogo
         
+        
             if self.mouse.get_pressed()[0] != self.mouse_state:
+                
+                cost = tower.tower_cost(self.selected_tower)              
                 
                 if self.mouse.get_pressed()[0] == False:
                     self.mouse_state= False
-                elif game_map.castle.gold >= tower.Cannon.cost and self.mouse_tile not in game_map.castle.home and self.mouse.get_pos()[0] < 800:
-                    game_map.castle.gold -=  tower.Cannon.cost
-                    self.game_map.create(self.selected_tower, self.mouse_tile)
+                    
+                    
+                elif game_map.castle.gold >= cost and self.mouse_tile not in game_map.castle.home and self.mouse.get_pos()[0] < 800:
+                    
+                    create_successful = self.game_map.create(self.selected_tower, self.mouse_tile)
+                    if create_successful == 1:
+                        game_map.castle.gold -=  cost
+                    
                     self.mouse_state= True
 #
             
             
 #Init
+            
+
 
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
@@ -232,9 +250,11 @@ gamespeed= 17 #em milissegundos de duração de cada ciclo
 current_time= pygame.time.get_ticks
 sleep= pygame.time.wait
 
+
 #Main
 
 while not event.quit:
+    
     
     initial_time= current_time()
     cycle.update()
