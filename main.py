@@ -63,7 +63,7 @@ class DrawHandler:
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
         'JohnnyBravoSlime': pygame.image.load('pictures\johnnybravoslime_no_bg.png'),
         'Slime_Fire': pygame.image.load('pictures\Slime_Fire.png'),
-        'Slime_MagnataBMP': pygame.image.load('pictures\Slime_MagnataBMP.bmp'),
+        'Slime_MagnataPNG': pygame.image.load('pictures\Slime_MagnataPNG.png'),
         'Olho': pygame.image.load('pictures\olho.png'),
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png'),

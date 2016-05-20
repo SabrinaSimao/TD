@@ -20,8 +20,8 @@ class JohnnyBravoSlime (Monster):
     hp_max = 30
     cycle= 60
 
-class Slime_MagnataBMP (Monster):
-    icon = "Slime_MagnataBMP"
+class Slime_MagnataPNG (Monster):
+    icon = "Slime_MagnataPNG"
     hp_max = 50
     cycle= 60
     

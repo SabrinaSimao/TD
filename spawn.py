@@ -56,7 +56,7 @@ class Spawn:
     def action(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.wave == None:
-            if self.difficulty % 10 != 0:
+            if self.difficulty % 10 != 0 or self.difficulty > 20:
                 self.wave= self.make_wave()
             else:
                 self.wave=self.boss_wave_list[(self.difficulty//10)-1] 
@@ -93,7 +93,7 @@ class MonPacket4:
     monster= ["JohnnyBravoSlime"]
 class MonPacket5:
     cost= 5
-    monster= ["Slime_MagnataBMP"]
+    monster= ["Slime_MagnataPNG"]
 class MonPacket6:
     cost= 6
     monster= ["Slime_Fire"]
