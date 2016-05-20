@@ -52,7 +52,7 @@ class Spawn:
         return Wave(time, monster_list)
         ##
         
-    def action(self):
+    def update(self):
         ## Se não tiver Wave ativa, carregar a próxima
         if self.wave == None:
             if self.difficulty % 10 != 0 or self.difficulty > 20:

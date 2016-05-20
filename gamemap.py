@@ -233,15 +233,15 @@ class GameMap:
         return -1
     #
         
-    def create_particle(self, target_particle, start_tile, end_tile):
+    def create_particle(self, target_particle, parameters):
         ##  Overview
         #  cria uma instância tipo Particle para um Tile alvo
         #----------------------------------------------------------------------
         ##  Parâmetros:
-        #  particle: uma chave em String correspondente ao tipo de particle a
+        #  target_particle: uma chave em String correspondente ao tipo de particle a
         # ser criada
-        #  start_tile: instância de Tile de onde o particle parte
-        #  end_tile: instância de Tile onde o particle termina
+        #  parameters: tuple representado os parâmetros de criação de
+        # target_particle
         #----------------------------------------------------------------------
         ## Retorno:
         #  int 1 em caso de sucesso
@@ -249,10 +249,11 @@ class GameMap:
         ##
         key_dict={
             "Cannonball": particle.Cannonball,
-            "Shadow": particle.Shadow
+            "Shadow": particle.Shadow,
+            "BouncingDoppleganger": particle.BouncingDoppleganger
         }
         
-        self.particle_list.append(key_dict[target_particle](self, start_tile, end_tile))
+        self.particle_list.append(key_dict[target_particle](*parameters))
         return 1
          
     def erase(self, target_actionable, target_tile):

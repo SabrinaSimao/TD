@@ -34,13 +34,13 @@ class CycleHandler:
             for tile in tile_column:
                 if tile.actionable != None:
                     if tile.actionable.cycle != 0 and self.cyclecounter % tile.actionable.cycle == 0:
-                        routine_buffer.append( tile.actionable.action)
+                        routine_buffer.append( tile.actionable.update)
         
         for routine in routine_buffer:
             routine()
         
         if self.cyclecounter % self.spawn.cycle == 0:
-            self.spawn.action()
+            self.spawn.update()
                     
         self.cyclecounter+= 1
         self.cyclecounter%= self.cyclelimit
@@ -50,6 +50,7 @@ class CycleHandler:
 class DrawHandler:
     #desenha os sprites na tela a cada ciclo de jogo
     image_bank= {
+        "Default": pygame.image.load('pictures\Default.png'),
         'Tile_Grass': pygame.image.load('pictures\\tiles\grass.bmp'),
         'Tile_Wall': pygame.image.load('pictures\\tiles\Tile_Wall.png'),
         'Tile_Door': pygame.image.load('pictures\\tiles\Tile_Door.bmp'),
@@ -69,6 +70,7 @@ class DrawHandler:
 #        'FatSlime': pygame.image.load('pictures\fatslime_no_bg.png'),
         'Cannon': pygame.image.load('pictures\cannon.png'),
         'Shadow': pygame.image.load('pictures\particles\shadow.png'),
+        'Big_Shadow': pygame.image.load('pictures\particles\Big_Shadow.png'),
         'Cannonball': pygame.image.load('pictures\particles\cannonball.png'),
         'archer_tower': pygame.image.load('pictures\\archer_tower.png')}
 

@@ -27,16 +27,22 @@ class Actionable:
 class Monster( Actionable):
     hp_max= 10
     damage= 1
+    jump= 20
+    backup= "Default"
     
     def activate ( self):
         self.hp_current= self.hp_max
         self.cycle= self.wait
+        self.home= [self.home]
+        self.icon= self.backup
     
-    def action( self):
+    def update( self):
         #função que executa o monstro, chamada por CycleManager
-        self.move()
-       
-    def move (self):
+        if self.icon != "Default":
+            self.move_start()
+        else:
+            self.move_end()
+    def move_start (self):
         #tenta se mover para a tile abaixo
         #em sucesso:
         #retirar sua instância da tile anterior
@@ -49,31 +55,42 @@ class Monster( Actionable):
         direction_list= ["Up", "Right", "Down", "Left"]
         random.shuffle(direction_list)
         for direction in direction_list:
-            target_tile= self.game_map.get_adjacent_tile(self.home, direction)
-            if target_tile!= None and target_tile.move_value == self.home.move_value-1:
+            target_tile= self.game_map.get_adjacent_tile(self.home[0], direction)
+            if target_tile!= None and target_tile.move_value == self.home[0].move_value-1:
                 found= True
                 break
             
         if found:
             if self.game_map.create(self, target_tile) == 1:
-                self.game_map.erase(self, self.home)
-                self.home= target_tile
-                if self.game_map.castle.tile_is_castle(self.home):
-                    self.invade()
+                self.game_map.erase(self, self.home[0])
+                self.home.append( target_tile)
+                self.game_map.create_particle("BouncingDoppleganger", (self.game_map, self.icon, self.home[0], self.home[1], self.jump))
+                self.icon="Default"
+                self.cycle= 20
                 return 1
         #print("Monstro não achou tile para andar")
-        return -1        
+        return -1
     
+    def move_end(self):
+        self.icon= self.backup
+        self.cycle= self.wait
+        self.game_map.erase(self, self.home[0])
+        self.home.pop(0)
+        if self.game_map.castle.tile_is_castle(self.home[0]):
+                self.invade()
+        
     def take_damage( self, damage):
         self.hp_current -= damage
         if self.hp_current <= 0:
             self.game_map.castle.gain_gold(5)#mudar o 5 por uma variavel para cadas monstro, 5 = quantidade de gold a ser ganha
-            self.game_map.erase(self, self.home)
+            self.game_map.erase(self, self.home[0])
+            if len(self.home) == 2:
+                self.game_map.erase(self, self.home[1])
                     
     def invade( self):
         #em caráter temporário:
         self.game_map.castle.take_damage(1)
-        self.game_map.erase(self, self.home)
+        self.game_map.erase(self, self.home[0])
         
 class Tower( Actionable):
     attack_range= 0
@@ -112,12 +129,12 @@ class Tower( Actionable):
                 return tile
         return None
         
-    def action( self):
+    def update( self):
         self.cycle= 1
         
         target= self.seek_target()
         if target != None:
-            self.game_map.create_particle("Cannonball", self.home, target)
+            self.game_map.create_particle("Cannonball", (self.game_map, self.home, target))
             self.cycle= self.reload_time
     #
 #

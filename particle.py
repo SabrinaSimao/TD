@@ -37,16 +37,51 @@ class Particle:
         self.game_map.erase_particle(self)
     
 #
+    
+class BouncingDoppleganger(Particle):
+    pixel= 32
+    
+    def __init__(self, game_map, icon, origin_tile, target_tile, duration):
+        self.game_map= game_map
+        self.icon= icon
+        self.origin_tile= origin_tile
+        self.target_tile= target_tile
+        self.duration= duration
+        
+        self.trajectory= Trajectory(self)
+        self.arch= Arch(self)
+        
+        game_map.create_particle("Shadow", (game_map, origin_tile, target_tile, "Big", duration))
+        
+        self.step= 0
+        
+    def update(self):
+     
+        self.step+= 1
+        self.trajectory.update()
+        self.arch.update()
+        
+        if self.step == self.duration:
+            self.erase()
+    #
+            
+    def read_position(self):
+        return int(self.trajectory.x_current), int(self.trajectory.y_current)-self.arch.y_current
+            
+    def erase(self):
+        self.game_map.erase_particle(self)
+        
+        
+        
      
 class Trajectory:
     
     def __init__(self, particle):
         self.particle= particle
         
-        
         self.x_current, self.y_current= particle.game_map.distance_between(particle.origin_tile, particle.game_map.tile_grid[0][0])
-        self.x_current= self.x_current*particle.origin_tile.pixel + particle.pixel//2
-        self.y_current= self.y_current*particle.origin_tile.pixel + particle.pixel//2
+        self.x_current= self.x_current*particle.origin_tile.pixel + particle.origin_tile.pixel - particle.pixel
+        self.y_current= self.y_current*particle.origin_tile.pixel + particle.origin_tile.pixel - particle.pixel
         
         width, height= particle.game_map.distance_between(particle.origin_tile, particle.target_tile)
         
@@ -76,7 +111,7 @@ class Bullet(Particle):
         self.game_map=game_map
         self.trajectory= Trajectory(self)
         self.arch= Arch(self)
-        game_map.create_particle("Shadow", origin_tile, target_tile )
+        game_map.create_particle("Shadow", (game_map, origin_tile, target_tile, "Small", self.duration) )
         
         self.step= 0
     #
@@ -116,19 +151,35 @@ class Arch:
         
     
 class Shadow(Particle):
-    icon= "Shadow"
-    duration= 40
+    
+    def __init__(self, game_map, origin_tile, target_tile, size, duration):
+        self.origin_tile= origin_tile
+        self.target_tile= target_tile
+        self.game_map=game_map
+        if size == "Small":
+            self.backup= "Shadow"
+        elif size == "Big":
+            self.backup= "Big_Shadow"
+            self.pixel= 32
+        self.duration= duration
+        self.trajectory= Trajectory(self)
+        self.step= 0
+        
+        self.trajectory= Trajectory(self)
+        self.step= 0
+    #
         
     def update(self):
      
         self.step+= 1
         self.trajectory.update()
         
-        if self.icon == 'Shadow':
-            self.icon= None
-        else:
-            self.icon= "Shadow"
-        
+        if self.step%1 == 0:
+            if self.icon == "Default":
+                self.icon= self.backup
+            else:
+                self.icon= "Default"
+            
         if self.step == self.duration:
             self.erase()
     #
