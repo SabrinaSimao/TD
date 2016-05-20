@@ -25,7 +25,7 @@ def start(screen):
     pygame.draw.rect (screen, (255, 0, 0), (400, 400, 32, 32,))
     
     
-#       colocar um codigo aqui para mostrar texto: aperte a enter  para começar
+#       colocar um codigo aqui para mostrar texto: aperte  enter  para começar
     
     while start_game == False:
         
@@ -37,34 +37,40 @@ def start(screen):
             
 
 def draw_menu(Surface,image):
-    x = 768    
-    
+    x = 768 
+
     for i in range(7):
         y = 0
         x += 32
-        
+
         for j in range(19):
-#            print(y)
+
             pygame.Surface.blit(Surface,image,(x + 224,y), area=None, special_flags = 0)
             y += 32
 
 def cannon_button (screen):
-    #Coloração do botão
+
 
 #    pygame.draw.rect (screen, color, (x, y, width, height))
     pygame.draw.rect (screen, (0, 255, 0), (900, 100, 32, 32,)) # cannon_button
-    pygame.draw.rect (screen, (255, 0, 0), (900, 200, 32, 32,)) # archer_button
-    pygame.draw.rect (screen, (255, 0, 0), (900, 300, 32, 32,)) # tower 3
+    pygame.draw.rect (screen, (255, 0, 0), (900, 300, 32, 32,)) # archer_button
+    pygame.draw.rect (screen, (255, 0, 0), (900, 500, 32, 32,)) # balista_button
     
     return 'Cannon'
         
 def archer_button (screen):
     
-    #    pygame.draw.rect (screen, color, (x, y, width, height))
+
     pygame.draw.rect (screen, (255, 0, 0), (900, 100, 32, 32,)) # cannon_button
-    pygame.draw.rect (screen, (0, 255, 0), (900, 200, 32, 32,)) # archer_button
-    pygame.draw.rect (screen, (255, 0, 0), (900, 300, 32, 32,)) # tower 3
+    pygame.draw.rect (screen, (0, 255, 0), (900, 300, 32, 32,)) # archer_button
+    pygame.draw.rect (screen, (255, 0, 0), (900, 500, 32, 32,)) # balista_button
     
     return 'archer'
-
- 
+    
+def balista_button (screen):
+    
+    pygame.draw.rect (screen, (255, 0, 0), (900, 100, 32, 32,)) # cannon_button
+    pygame.draw.rect (screen, (255, 0, 0), (900, 300, 32, 32,)) # archer_button
+    pygame.draw.rect (screen, (0, 255, 0), (900, 500, 32, 32,)) # balista_button
+    
+    return 'balista'

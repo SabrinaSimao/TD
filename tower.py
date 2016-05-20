@@ -11,7 +11,7 @@ class archer_tower(Tower):
     attack_range= 3
     bullet= "Cannonball"
     icon= "archer_tower"
-    reload_time= 60
+    reload_time= 50
     cost = 5
     
 def tower_cost(selected_tower):

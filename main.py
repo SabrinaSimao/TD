@@ -96,8 +96,8 @@ class DrawHandler:
 #       
         
         pygame.draw.rect (self.canvas, (255, 0, 0), (900, 100, 32, 32,))
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 200, 32, 32,))
         pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32,))
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 500, 32, 32,))
     #
 
 
@@ -140,7 +140,7 @@ class DrawHandler:
         
         # Money no menu lateral
         
-        titulos.money_text_title ('Money: ', game_map.castle.gold, (0, 0, 0), self.canvas)
+        titulos.money_text_title ('Gold: ', game_map.castle.gold, (0, 0, 0), self.canvas)
 
         self.display.flip()
     #
@@ -216,7 +216,7 @@ class EventHandler:
             
             self.selected_tower = menu.cannon_button (draw.canvas)
             
-        if 900 + 32 > mouse_position [0] > 900 and 200 + 32 > mouse_position [1] > 200 and click[0] == True:
+        if 900 + 32 > mouse_position [0] > 900 and 300 + 32 > mouse_position [1] > 200 and click[0] == True:
             
             self.selected_tower = menu.archer_button (draw.canvas)
             

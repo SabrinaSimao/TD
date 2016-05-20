@@ -66,7 +66,8 @@ class Trajectory:
 #
     
 class Bullet(Particle):
-    #falta programar o desvio vertical das balas
+
+
     damage= 5
     
     def __init__(self, game_map, origin_tile, target_tile):
