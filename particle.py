@@ -105,7 +105,7 @@ class Arch:
     def __init__(self, bullet):
         self.bullet= bullet
         self.y_current= 0
-        width= (bullet.trajectory.x_increment*bullet.duration**2  + bullet.trajectory.y_increment*bullet.duration**2)**(1/2)
+        width= ( (bullet.trajectory.x_increment*bullet.duration )**2  + (bullet.trajectory.y_increment*bullet.duration**2) )**(1/2)
         self.y_max= width/2**(1/2)
         if self.y_max < 0:
             self.y_max*=-1
