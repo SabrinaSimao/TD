@@ -73,6 +73,7 @@ class DrawHandler:
         'Tile_Mountain': pygame.image.load('pictures\\tiles\Tile_Mountain.bmp'),
         'Tile_Tree': pygame.image.load('pictures\\tiles\Tile_Tree.png'),
         'Tile_Dirt': pygame.image.load('pictures\\tiles\Tile_Dirt.bmp'),
+        'Tile_Menu': pygame.image.load('pictures\\tiles\Tile_Menu.png'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
@@ -114,7 +115,7 @@ class DrawHandler:
             y = 0
     
             for j in range(19):
-                self.canvas.blit(self.image_bank['Tile_Wall'], (x ,y))
+                self.canvas.blit(self.image_bank['Tile_Menu'], (x ,y))
                 y += 32
             x+=32
         #botoes
