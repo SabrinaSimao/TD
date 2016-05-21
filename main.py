@@ -15,6 +15,8 @@ import tower
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
 
+
+
 class CycleHandler:
     #Decide quando executar os objetos do jogo (monstros, torres, etc)
 
@@ -29,7 +31,12 @@ class CycleHandler:
         
     #
     
-    def update(self):
+    def update(self,start):
+        
+        if start == False:
+            return
+
+
         
         routine_buffer=[]
         
@@ -74,6 +81,7 @@ class DrawHandler:
         'Tile_Tree': pygame.image.load('pictures\\tiles\Tile_Tree.png'),
         'Tile_Dirt': pygame.image.load('pictures\\tiles\Tile_Dirt.bmp'),
         'Tile_Menu': pygame.image.load('pictures\\tiles\Tile_Menu.png'),
+        'Titulo': pygame.image.load('pictures\\Titulo.png'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
@@ -98,15 +106,41 @@ class DrawHandler:
         self.display.init()
         self.canvas= self.display.set_mode([self.sprite_size*len( self.tile_grid[0]) + 224, self.sprite_size*len(self.tile_grid)])
         self.canvas.fill([255, 255, 255])
+        
+        
+#        -----imagem para o menu inicial----
+        
+        self.canvas.blit(self.image_bank['Titulo'], (0 ,0))
+        self.display.flip()
+        
+        
     #
 
 
 
 
-    def update(self):
+    def update(self,start):
         ## Overview: desenha os sprites no mapa
         # primeiro desenha as tiles sequencialmente
         # depois desenha as criaturas contidas em cada tile
+    
+    
+    #    ----------------começo do start-----------        
+        
+        if start == False:
+
+            
+
+                
+            if pygame.mouse.get_pressed()[0] == True or pygame.key.get_pressed()[pygame.K_RETURN] == True:
+                return True
+                
+                
+                
+            else:
+                return False
+                
+#        ---------final do start--------
     
     #        ----MENU_lateral-----                
         x = 800 
@@ -276,7 +310,7 @@ class EventHandler:
             
 #Init
             
-
+start = False
 
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)
@@ -294,8 +328,8 @@ while not event.quit:
     
     
     initial_time= current_time()
-    cycle.update()
-    draw.update()
+    cycle.update(start)
+    start = draw.update(start)
     event.update()
     
     elapsed_time= current_time() - initial_time
