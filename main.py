@@ -199,10 +199,10 @@ class DrawHandler:
 #            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
         
         # Money no menu lateral
-        labels.money_text_title ('Gold: ', game_map.castle.gold, (255, 255, 15), self.canvas)
+        labels.money_text_title ('Gold: ', game_map.castle.gold, (255, 255, 10), self.canvas)
 
         # Life no menu lateral
-        labels.life_text_title ('Life: ', game_map.castle.hp_current, (0, 255, 150), self.canvas)
+        labels.life_text_title ('Life: ', game_map.castle.hp_current, (0, 255, 120), self.canvas)
 
         self.display.flip()
     #
