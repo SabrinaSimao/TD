@@ -321,7 +321,7 @@ gamespeed= 16 #em milissegundos de duração de cada ciclo
 current_time= pygame.time.get_ticks
 sleep= pygame.time.wait
 
-
+pygame.display.set_caption("Slime Wars")
 #Main
 
 while not event.quit:
