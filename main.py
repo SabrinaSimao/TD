@@ -204,6 +204,18 @@ class DrawHandler:
         # Life no menu lateral
         labels.life_text_title ('Life: ', game_map.castle.hp_current, (0, 255, 120), self.canvas)
 
+        # Build label        
+        labels.build_label ('Build menu:', (255, 255, 255), self.canvas)
+
+        # Cannon label        
+        labels.cannon_label ('cannon', (200, 200, 200), self.canvas)
+
+        # Buildalgo label        
+#        labels.buildalgo_label ('Build', (200, 200, 200), self.canvas)
+
+        #Ballista label        
+        labels.ballista_label ('ballista', (200, 200, 200), self.canvas)
+
         self.display.flip()
     #
 #
