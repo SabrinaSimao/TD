@@ -9,8 +9,8 @@ class Slime (Monster):
 class Slime_nobg (Monster):
     backup= "Slime_nobg"
     hp_max = 10
-    wait= 1
-    gold= 5
+    wait= 20
+    gold= 10
 
 class GlassSlime (Monster):
     backup= "GlassSlime"

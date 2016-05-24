@@ -83,6 +83,7 @@ class DrawHandler:
         'Tile_Dirt': pygame.image.load('pictures\\tiles\Tile_Dirt.bmp'),
         'Tile_Menu': pygame.image.load('pictures\\tiles\Tile_Menu.png'),
         'Titulo': pygame.image.load('pictures\\Titulo.png'),
+        'Lost': pygame.image.load('pictures\\Lost.png'),
         'Slime': pygame.image.load('pictures\slime.png'),
         'Slime_nobg': pygame.image.load('pictures\slime_no_bg.png'),
         'GlassSlime': pygame.image.load('pictures\glassslime_no_bg.png'),
