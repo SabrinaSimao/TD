@@ -11,6 +11,7 @@ from menu import Menu
 from particle import Shadow
 import labels
 import tower
+import os
 
 #não sei se da para não importar esses dois,seria necessário fazer 
 # o jogo checar se o player tem dinheiro suficiente em outro lugar
@@ -205,7 +206,7 @@ class DrawHandler:
 #        labels.buildalgo_label ('Build', (200, 200, 200), self.canvas)
 
         #Ballista label        
-        labels.ballista_label ('ballista', (200, 200, 200), self.canvas)
+        labels.archer_label ('archer', (200, 200, 200), self.canvas)
 
         self.display.flip()
     #
@@ -312,8 +313,10 @@ class EventHandler:
             
             
 #Init
-            
+
 start = False
+
+os.environ['SDL_VIDEO_WINDOW_POS'] = "150, 40"
 
 game_map= GameMap()
 draw=  DrawHandler(game_map, pygame.display)

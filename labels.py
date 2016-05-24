@@ -38,7 +38,7 @@ def build_label (text_build, color, screen):
 #Cannon Label
 def cannon_label (text_cannon, color, screen):
     cannon_text = font.render (text_cannon, True, color)
-    screen.blit (cannon_text, [810, 210])
+    screen.blit (cannon_text, [810, 160])
 
 
 #Build algo label
@@ -48,7 +48,7 @@ def buildalgo_label (text_buildalgo, color, screen):
     screen.blit (buildalgo_text, [810, 300])
 
 
-#Cannon Label
-def ballista_label (text_ballista, color, screen):
-    ballista_text = font.render (text_ballista, True, color)
-    screen.blit (ballista_text, [810, 330])
+#Archer Label
+def archer_label (text_archer, color, screen):
+    archer_text = font.render (text_archer, True, color)
+    screen.blit (archer_text, [810, 360])
