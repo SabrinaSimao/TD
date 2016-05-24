@@ -5,9 +5,10 @@ Created on Fri Apr 29 14:41:28 2016
 @author: Paulo
 """
 
+
 class Castle:
     def __init__(self, home):
-        self.hp_max = 10
+        self.hp_max = 1
         self.hp_current = self.hp_max
         self.home= home
         self.gold = 20

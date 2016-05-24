@@ -155,13 +155,13 @@ class DrawHandler:
         #botoes
         
         
-        pygame.draw.rect (self.canvas, (255 , 0 ,0), (900, 100, 32, 32)) # cannon_button
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 300, 32, 32)) # archer_button
-        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 500, 32, 32)) # balista_button
+        pygame.draw.rect (self.canvas, (255 , 0 ,0), (900, 200, 32, 32)) # cannon_button
+        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 400, 32, 32)) # archer_button
+#        pygame.draw.rect (self.canvas, (255, 0, 0), (900, 600, 32, 32)) # balista_button
         
         selected={
-            "Cannon": 100,
-            "Archer_Tower": 300
+            "Cannon": 200,
+            "Archer_Tower": 400
         }
         if Menu.button_selected != None:
             pygame.draw.rect (self.canvas, (0, 255, 0), (900, selected[Menu.button_selected], 32, 32)) # balista_button
@@ -188,15 +188,6 @@ class DrawHandler:
         #desenha partículas:
         for particle in self.game_map.particle_holder.particle:
             self.canvas.blit(self.image_bank[particle.icon], particle.read_position())
-
-        #Parte dos botões inutil agora,eu acho
-#        mouse_position = pygame.mouse.get_pos ()
-#        click = pygame.mouse.get_pressed ()
-#        
-#        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100:
-#            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
-#        else:
-#            menu.cannon_button (mouse_position, self.canvas, 900, 100, 32, 32, (100, 100, 100), (200, 200, 200), click)
         
         # Money no menu lateral
         labels.money_text_title ('Gold: ', game_map.castle.gold, (255, 255, 10), self.canvas)
@@ -269,13 +260,13 @@ class EventHandler:
         mouse_position = pygame.mouse.get_pos ()
         click = pygame.mouse.get_pressed ()
         
-        if 900 + 32 > mouse_position [0] > 900 and 100 + 32 > mouse_position [1] > 100 and click[0] == True:
+        if 900 + 32 > mouse_position [0] > 900 and 200 + 32 > mouse_position [1] > 200 and click[0] == True:
 
 #            self.draw.desenhar_botão()
             
             self.selected_tower = Menu.button_selected= "Cannon"
             
-        if 900 + 32 > mouse_position [0] > 900 and 300 + 32 > mouse_position [1] > 200 and click[0] == True:
+        if 900 + 32 > mouse_position [0] > 900 and 400 + 32 > mouse_position [1] > 300 and click[0] == True:
             
             self.selected_tower = Menu.button_selected= "Archer_Tower"
             
