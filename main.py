@@ -143,6 +143,13 @@ class DrawHandler:
                 return False
                 
 #        ---------final do start--------
+                
+#        --------Game Over------  nota: o jogo não começa denovo
+        if game_map.castle.hp_current <= 0:
+            self.canvas.blit(self.image_bank['Lost'], (0 ,0)) 
+            self.display.flip()
+            return
+
     
     #        ----MENU_lateral-----                
         x = 800 
