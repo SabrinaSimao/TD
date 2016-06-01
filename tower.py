@@ -1,7 +1,7 @@
 from actionable import Tower
 
 class Cannon(Tower):
-    attack_range= 3
+    attack_range= 5
     bullet= "Cannonball"
     icon= "Cannon"
     reload_time= 120
