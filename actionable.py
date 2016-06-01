@@ -150,7 +150,7 @@ class Tower( Actionable):
         
         target= self.seek_target()
         if target != None:
-            self.game_map.particle_holder.create("Cannonball", (self.game_map, self.home, target))
+            self.game_map.particle_holder.create(self.bullet, (self.game_map, self.home, target))
             self.cycle= self.reload_time
     #
 #

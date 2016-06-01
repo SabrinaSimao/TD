@@ -190,7 +190,8 @@ class Cannonball(Bullet):
     duration= 40
     
 class Arrow(Bullet):
-    icon= "Arrow"
-    damage= 10
-    duration= 20
+    #icon= "Arrow"
+    icon= "Cannonball" #fix rápido temporário pra diferenciar mais a torre de arqueiros
+    damage= 5
+    duration= 15
 #

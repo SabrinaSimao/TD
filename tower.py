@@ -9,7 +9,7 @@ class Cannon(Tower):
     
 class ArcherTower(Tower):
     attack_range= 3
-    bullet= "Cannonball"
+    bullet= "Arrow"
     icon= "Archer_tower"
     reload_time= 50
     cost = 5

@@ -29,6 +29,7 @@ class ParticleHolder:
         ##
         key_dict={
             "Cannonball": particle.Cannonball,
+            "Arrow": particle.Arrow,
             "Shadow": particle.Shadow,
             "BouncingDoppleganger": particle.BouncingDoppleganger
         }
