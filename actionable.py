@@ -18,10 +18,13 @@ class Actionable:
         self.cycle= 1
         self.activate()
         
-    def activate():
+    def activate(self):
         None
         
-    def action():
+    def take_damage( self, damage):
+        pass
+        
+    def action(self):
         None
 
 class Monster( Actionable):
@@ -141,9 +144,6 @@ class Tower( Actionable):
             if isinstance(tile.actionable, Monster):
                 return tile
         return None
-        
-    def take_damage( self):
-        pass
         
     def update( self):
         self.cycle= 1
