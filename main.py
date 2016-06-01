@@ -121,7 +121,7 @@ class DrawHandler:
 
 
 
-    def update(self,start):
+    def update(self,start,disabled_GAME_OVER):
         ## Overview: desenha os sprites no mapa
         # primeiro desenha as tiles sequencialmente
         # depois desenha as criaturas contidas em cada tile
@@ -145,7 +145,7 @@ class DrawHandler:
 #        ---------final do start--------
                 
 #        --------Game Over------  nota: o jogo não começa denovo
-        if game_map.castle.hp_current <= 0:
+        if game_map.castle.hp_current <= 0 and disabled_GAME_OVER == False:
             self.canvas.blit(self.image_bank['Lost'], (0 ,0)) 
             self.display.flip()
             return
@@ -213,7 +213,7 @@ class DrawHandler:
         # Buildalgo label        
 #        labels.buildalgo_label ('Build', (200, 200, 200), self.canvas)
 
-        #Ballista label        
+        #Archer label        
         labels.archer_label ('archer', (200, 200, 200), self.canvas)
 
         self.display.flip()
@@ -323,6 +323,8 @@ class EventHandler:
 #Init
 
 start = False
+disabled_GAME_OVER = False
+
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "150, 40"
 
@@ -343,7 +345,7 @@ while not event.quit:
     
     initial_time= current_time()
     cycle.update(start)
-    start = draw.update(start)
+    start = draw.update(start,disabled_GAME_OVER)
     event.update()
     
     elapsed_time= current_time() - initial_time
