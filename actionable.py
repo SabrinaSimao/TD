@@ -142,6 +142,9 @@ class Tower( Actionable):
                 return tile
         return None
         
+    def take_damage( self):
+        pass
+        
     def update( self):
         self.cycle= 1
         
