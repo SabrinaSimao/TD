@@ -82,7 +82,7 @@ class Monster( Actionable):
                 self.home.append( target_tile)
                 self.game_map.particle_holder.create("BouncingDoppleganger", (self.game_map, self.icon, self.home[0], self.home[1], self.jump))
                 self.icon="Default"
-                self.cycle= 20
+                self.cycle= self.jump
                 return 1
         #print("Monstro não achou tile para andar")
         return -1
