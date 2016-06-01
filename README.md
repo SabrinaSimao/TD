@@ -1,8 +1,6 @@
 #Projeto final de Design de Software - Tower Defense
 Alexandre Young (Yiaaann), Sabrina Simão (SabrinaSimao), Paulo Tozzo (Formulos) e Lucas Chen (chends888)
 
-##Projeto: Tower Defense
-
 ###Visão Geral:
 
   Um jogo estilo Tower Defense, onde se protege uma sessão geral da tela de uma invasão de inimigos por meio da construção de estruturas (Towers) limitadas por um recurso limitado
