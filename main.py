@@ -208,13 +208,13 @@ class DrawHandler:
         labels.build_label ('Build menu:', (255, 255, 255), self.canvas)
 
         # Cannon label        
-        labels.cannon_label ('cannon', (200, 200, 200), self.canvas)
+        labels.cannon_label ('cannon 10G', (200, 200, 200), self.canvas)
 
         # Buildalgo label        
 #        labels.buildalgo_label ('Build', (200, 200, 200), self.canvas)
 
         #Archer label        
-        labels.archer_label ('archer', (200, 200, 200), self.canvas)
+        labels.archer_label ('archer 5G', (200, 200, 200), self.canvas)
 
         self.display.flip()
     #
