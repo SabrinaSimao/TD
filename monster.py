@@ -39,7 +39,7 @@ class Slime_Fire (Monster):
     
 class Olho (Monster):
     backup= "Olho"
-    hp_max = 250
+    hp_max = 800
     wait= 60
     gold= 80
     
